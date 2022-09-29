@@ -27,3 +27,6 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - A filosofia Rails segue dois grandes principios:
   - **Não se repita** (Don't Repeat Yourself - **DRY**). DRY é um princípio de desenvolvimento de software que afirma que "Cada pedaço do conhecimento deve ter uma representação única, não ambígua e autoritária dentro de um sistema". Por não escrever a mesma informação repetidas vezes, seu código é mais sustentável, mais extensível, e possuirá menos bugs.
   - **Convenção sobre Configuração**(Convention Over Configuration - **CoC**): Rails tem opniões sobre a melhor maneira de padronizar e fazer muitas coisas em uma aplicação web, em vez de exigir que você especifique cada minúcia através de infinitos arquivos de configuração.
+
+# Iniciando projeto em Rails
+  comando -> rails new <nome_do_arquivo>
