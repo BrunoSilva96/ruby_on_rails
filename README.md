@@ -30,3 +30,20 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 
 # Iniciando projeto em Rails
   comando -> rails new <nome_do_arquivo>
+  
+# Ruby e RVM
+  O RVM é uma ferramenta de linha de comando que permite que você instale, gerencie e trabalhe facilmente com vários ambientes Ruby, desde interpretadores até conjuntos de gems.
+  
+  Comandos úteis do RVM
+  - Lista todas as versões disponíveis no repositório
+    - rvm list know
+  - Atualiza a lista
+    - rvm get head
+  - Lista as versões instaladas localmente
+    - rvm list
+  - Instala uma versão escolhida
+    - rvm install x.x.x
+  - Instala uma versão escolhida e a torna padrão
+    - rvm install x.x.x --default
+  - Seleciona a versão que deseja usar
+    - rvm use x.x.x
