@@ -47,3 +47,7 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - rvm install x.x.x --default
   - Seleciona a versão que deseja usar
     - rvm use x.x.x
+
+**Como executar um arquivo ruby?**
+  - Após escrever o algoritimo em arquivo, rode no terminaç:
+    - ruby nome_do_arquivo.rb
