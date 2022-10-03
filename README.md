@@ -51,3 +51,18 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 **Como executar um arquivo ruby?**
   - Após escrever o algoritimo em arquivo, rode no terminaç:
     - ruby nome_do_arquivo.rb
+
+# Aulas módulo 2
+  Ruby básico, todos estão no repositório ruby_poo, aqui teremos apenas uma revisão básica.
+  
+  **Vetores/Array**
+    - Arrays podem ser aninhados:
+      - vetor = [[11, 12, 13,], [21, 22, 23], [31, 32, 33]]
+    - Podemos usar o **each** para iterar
+    Exemplo
+                      
+                      vetor.each do |externo|
+                        externo.each do |interno|
+                          puts interno
+                        end
+                      end
