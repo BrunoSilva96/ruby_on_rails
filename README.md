@@ -55,10 +55,10 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 # Aulas módulo 2
   Ruby básico, todos estão no repositório ruby_poo, aqui teremos apenas uma revisão básica.
   
-  **Vetores/Array**
-    - Arrays podem ser aninhados:
-      - vetor = [[11, 12, 13,], [21, 22, 23], [31, 32, 33]]
-    - Podemos usar o **each** para iterar
+ **Vetores/Array**
+  - Arrays podem ser aninhados:
+    - vetor = [[11, 12, 13,], [21, 22, 23], [31, 32, 33]]
+  - Podemos usar o **each** para iterar
     Exemplo
                       
                       vetor.each do |externo|
@@ -66,3 +66,8 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                           puts interno
                         end
                       end
+ **Hashes**
+  - Uma lista tipo chave => valor, a chave acessa o valor.
+    - hash = {"x" => 15, "curso" => "rails" ou "x": 15, "curso": "rails"}
+    - para acessar os elementos, use os []
+      - hash["curso"]
