@@ -71,3 +71,7 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - hash = {"x" => 15, "curso" => "rails" ou "x": 15, "curso": "rails"}
     - para acessar os elementos, use os []
       - hash["curso"]
+ 
+ **Símbolos**
+  - Símbolos são "strings imutáveis"
+  - Símbolos são muito usados em situações onde precisamos de um indetificador pois eles garantem que seu uso não implicará na criação de novos objetos sempre que usados.
