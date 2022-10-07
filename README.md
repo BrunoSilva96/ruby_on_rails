@@ -75,3 +75,11 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
  **Símbolos**
   - Símbolos são "strings imutáveis"
   - Símbolos são muito usados em situações onde precisamos de um indetificador pois eles garantem que seu uso não implicará na criação de novos objetos sempre que usados.
+  
+  **Classes vc Objetos**
+    - As classes são a maneira que temos de informar como queremos que nosso objeto funcione!
+    - Ao criarmos uma classe podemos especificar os métodos e os atributos que os objetos possuirão.
+    - Os **métodos** são as **ações.**
+    - Os **atributos** são as **características**
+  **Initialize**
+    - O étodo initializeé um metodo especial que serve para indicarmos o que a classe deve fazer ao ser instanciada/inicializada.
