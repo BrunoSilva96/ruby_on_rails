@@ -81,5 +81,17 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - Ao criarmos uma classe podemos especificar os métodos e os atributos que os objetos possuirão.
     - Os **métodos** são as **ações.**
     - Os **atributos** são as **características**
-  **Initialize**
-    - O étodo initializeé um metodo especial que serve para indicarmos o que a classe deve fazer ao ser instanciada/inicializada.
+  **Initialize**]
+    - O método initialize um método especial que serve para indicarmos o que a classe deve fazer ao ser instanciada/inicializada.
+
+  **Variáveis de Instaância**
+    - Variáveis de instância são varipaveis que existem apenas na instância do objeto (em todo objeto), ou seja, cada objeto possui seus próprios valores em tais variáveis.
+    - As variáveis de instância são procedidas de um @.
+  
+  **Accessors**
+    - Os accessors servem como atalhos para declaração e atributos de uma classe. Veja o exemplo:
+      - attr_acessor :nome
+    - A simples declaração acima te dá um "getter" e um "setter" para **nome** na classe em questão
+      - x = Pessoa.new
+      - x.nome = "Bruno Silva"
+      - x.nome
