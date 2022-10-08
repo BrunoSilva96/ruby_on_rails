@@ -77,21 +77,24 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Símbolos são muito usados em situações onde precisamos de um indetificador pois eles garantem que seu uso não implicará na criação de novos objetos sempre que usados.
   
   **Classes vc Objetos**
-    - As classes são a maneira que temos de informar como queremos que nosso objeto funcione!
-    - Ao criarmos uma classe podemos especificar os métodos e os atributos que os objetos possuirão.
-    - Os **métodos** são as **ações.**
-    - Os **atributos** são as **características**
-  **Initialize**]
-    - O método initialize um método especial que serve para indicarmos o que a classe deve fazer ao ser instanciada/inicializada.
+   - As classes são a maneira que temos de informar como queremos que nosso objeto funcione!
+   - Ao criarmos uma classe podemos especificar os métodos e os atributos que os objetos possuirão.
+   - Os **métodos** são as **ações.**
+   - Os **atributos** são as **características**
+  **Initialize**
+   - O método initialize um método especial que serve para indicarmos o que a classe deve fazer ao ser instanciada/inicializada.
 
   **Variáveis de Instaância**
-    - Variáveis de instância são varipaveis que existem apenas na instância do objeto (em todo objeto), ou seja, cada objeto possui seus próprios valores em tais variáveis.
-    - As variáveis de instância são procedidas de um @.
+  
+  - Variáveis de instância são varipaveis que existem apenas na instância do objeto (em todo objeto), ou seja, cada objeto possui seus próprios valores em tais variáveis.
+    
+  - As variáveis de instância são procedidas de um @.
   
   **Accessors**
     - Os accessors servem como atalhos para declaração e atributos de uma classe. Veja o exemplo:
       - attr_acessor :nome
-    - A simples declaração acima te dá um "getter" e um "setter" para **nome** na classe em questão
-      - x = Pessoa.new
-      - x.nome = "Bruno Silva"
-      - x.nome
+      
+   - A simples declaração acima te dá um "getter" e um "setter" para **nome** na classe em questão
+     - x = Pessoa.new
+     - x.nome = "Bruno Silva"
+     - x.nome
