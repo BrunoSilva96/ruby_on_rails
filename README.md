@@ -98,3 +98,11 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
      - x = Pessoa.new
      - x.nome = "Bruno Silva"
      - x.nome
+     
+   - Herança entre Classes
+     -Imagine a seguinte situação:
+      - Pessoa
+      - Pessoa Física
+       - Pessoa Jurídica
+   - Você deve concordar que tanto a pessoa física como a jurídica "herdam" características e ações da "pessoa genérica". Por exemplo: Ambas possuem nome, endereço, etc...
+   - No Ruby não existe herança múltipla, ou seja, não é possível herdar de várias classes ao mesmo tempo.
