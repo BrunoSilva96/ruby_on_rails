@@ -30,10 +30,10 @@ class Lottery
 
   def verify_number(number)
     start_array = 0#Início do array
-    end_array = @num_array.length - 1#Fim doarray
+    end_array = @num_array.length - 1#Fim do array
 
     while start_array <= end_array#While vai executar enquanto o inicio for menor ou igual ao fim
-      mid_array = (start_array + end_array) / 2#Meio doarray é o inicio + fim / 2
+      mid_array = (start_array + end_array) / 2#Meio do array é o inicio + fim / 2
 
       if @num_array[mid_array] == number#Se o número encontrado no array for igual ao parametro que passamos, então a resposta é true e descartamos esse numero
         return true
