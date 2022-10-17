@@ -113,3 +113,31 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
    - Módulos permanecem sozinhos; não há hierarquia de módulos ou herança. Módulos são um bom lugar para armazenar constantes em um local centralizado.
    - Primeiro eles agem como namespace, permitindo que você defina métodos cujos nomes não irão colidir com aqueles definidos em outras partes de um prgrama.
    - Em segundo lugar, permitem que você compartilhe funcionalidade entre classes - se uma classe "mistura"(mixes in) um módulo (isto é, o inclui), todos os métodos de instância do módulo se tornam disponíveis como se tivessem sido definidos na classe.
+
+# Módulo 3
+# Sites para buscar apoio nas documentações
+  - Documentação Ruby
+    - ruby-lang.org/pt/documentation/
+  - Core
+    - ruby-doc.org/core-x.x.x/ (número da versão)
+  - Standard Library
+    - ruby-soc.org/stdlib-x.x.x/
+  - API Dock
+    - apidock.com/ruby
+  - Documentação Ruby on Rails
+    - rubyonrails.org
+  - Guides
+    - guides,rubyonrails.org/
+  - API
+    - api.rubyonrails.org
+  - API Dock
+    - apidock.com/rails 
+
+# Modelagem de Dados
+  - A Modelagem de Dados é a criação de um modelo físico que explique a lógica por trás do sustema, com ele você é capaz de xplicar as caractepisticas de funcionamento e comportamento de um software.
+  - A modelagem de dados é a base de criação do Banco de dados e parte essencial para a qualidade do software.
+  
+# MVC
+  - Model, View e Controller
+  - É um padrão de arquitetura de software que separa a representação da informação da interação do usuário.
+  
