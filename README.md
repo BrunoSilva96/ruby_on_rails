@@ -140,4 +140,54 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 # MVC
   - Model, View e Controller
   - É um padrão de arquitetura de software que separa a representação da informação da interação do usuário.
-  
+
+# CRUD com Scaffold
+  - CRUD?
+    - **C**reate, **R**ead, **U**pdate, **D**elete
+    - Operações básicas em um BD/tabela
+  - Scaffold
+    - O rails possui um **generator** chamado **scaffold** que permite criar um CRUD para uma determinada "tabela"
+    - Para usar o generate para scaffold do Rails, rode o comando...
+      - rails generate scaffold <Model> <campo:tipo> <campo:tipo>... 
+  - Convenção
+    - Um model é sempre escrito com a primeira letra maiúscula e no singular
+      - Coin
+    - Programe sempre em inglês
+  - Tipos dos campos
+    - api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/SchemaStatements.html#method-i-add_column  
+  - O comando anterior cria diversos arquivos que podem ser acompanhados pelo log, e dentre eles temos:
+    - As views
+    - O controller
+    - O model
+    - A migração (migration)
+# Migrations
+  - Quando flamos sobre Migrations precisamos falar sobre **Active Record** e **ORM**
+  - Active Record é o **M** do MVC. O model.
+  - É a camada de software responsável pela lógica de dados e negócio.
+    - guides.rubyonrails.org/vx.x/active_record_basics.html
+  - Não confunda o **padrão** Active Record com **framework** Active Record!
+  - Nesse caso o framework é a implementação do padrão.
+  - Em resumo, migrations são uma característica do Active Record (o framework) que permite você "escrever/especificar" as tabelas do BD usando a linguagem Ruby.
+  - Dessa forma, vocÊ pode adicionar, modificar e removevr tabelas do BD sem utilizar SQL, além de ter sempre disponível toda a sequência de criação/alteração das tabelas envolvidas no projeto.
+  - As migrações também controlam quais já foram ou não aplicadas o BD através do arquivo **db/schema.rb**
+  - As migrations ficam localizadas em **db/migrate** em seu projeto.
+  - Sempre que criamos migrações, precisamos fazê-las "migrar" para o BD, ou seja, aplicar as mudanças no BD.
+  - Para isso, usamos algumas **tasks** predefinidas no Rails.
+# ORM
+  - ORM vem de **Object-Relational Mapping**
+  - Em resumo, é uma técnica que mapeia os dados em um BD para classes/objetos na programação
+# Rails Tasks
+  - Para conhecer todas as tasks disponíveis rode
+    - rails -T
+  - Para foltrar tasks específicas use as iniciais do que procura, por exemplo:
+    - rails -T db
+  - As taks de banco de dados mais usadas são:
+    - rails db:create  
+      - cria o db
+    - rails db:drop     
+      - apaga o db
+    - rails db:migrate 
+      - executa as migrations
+    - rails db:rollback
+      - desfaz a última migration
+    
