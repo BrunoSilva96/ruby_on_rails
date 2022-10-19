@@ -190,4 +190,27 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
       - executa as migrations
     - rails db:rollback
       - desfaz a última migration
-    
+   
+# Ambientes do Rails
+  - Por padrão, o Rails vem com 3 ambientes:
+    - **Desenvolvimento**
+    - **Teste**
+    - **Produção**
+  - Esses ambientes possibilitam ter configurações isoladas para cada ambiente.
+  - A sua Gemfile é a forma mais simples de perceber isso.
+
+# Fluxo MVC
+  - Após criarmos nosso scaffold, ganhamos model, views e controller para "Coin" que foi o nome escolhido para nosso model. Observe no projeto
+  - Daí, usamos o path **/coins** para acessar a página principal.
+  - Isso ocorre por alguns motivos, dentre eles é que o controller foi gerado com o nome **coins_controller** (a convenção do Rails é ter controllers sempre arquivos com **???_controller.rb**)
+  - Dentro do controller temos algumas actions (que são métodos) e dentre elas uma chamada **index** (que é a action "padrão")
+  - Sendo assim, ao acessar **/coins** pelo navegador indica que vamos para o controller coins e por ser um acesso "padrão" a action index será invocada, disparando na sequência o arquivo da view com o mesmo nome, nesse caso **app/views/coins/index.html.erb**
+  - Entender esse fluco inicial é de suma importância para o entendimento do Rails como um todo!!!
+
+# Conhecendo novos generators
+  - No rails, podemos conhecer novos generators simplesmente digitando um dos comandos abaixo
+    - rails generate
+    - rails g
+  - Ao digitar o comando acima, o rails mostrará os generators disponiveis
+  - Novos generators podem ser adicionados ao usarmos algumas gems (geralmente a documentação da gem indica isso)
+  - Perceba que a conversação do Controlledr com o Model é opcional mas o Controller e a View sempre andam juntos.
