@@ -214,3 +214,19 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Ao digitar o comando acima, o rails mostrará os generators disponiveis
   - Novos generators podem ser adicionados ao usarmos algumas gems (geralmente a documentação da gem indica isso)
   - Perceba que a conversação do Controlledr com o Model é opcional mas o Controller e a View sempre andam juntos.
+
+# ERB
+  - Embedded Ruby
+  - Em resumo, é uma forma de você mesclar texto com código Ruby
+  - A princípio você pode achar que uma simples "interpolação" com **#{}** resolveria, mas o ERB te dá a oportunidade de trabalhar com textos, HTML e expressões Ruby, ou seja, ele é muito mais completo e complexo doque uma simples interpolação
+  - Sendo assim, diz-se que ERB é um sistema de templates para o Ruby.
+  
+# Helpers
+  - Em resumo, helpers são métodos prontos que podem ser usados nas views
+  - Esses métodos geralmente facilitam a vida do programador, fazendo com que menos código seja escrito para que se consiga o mesmo resultado
+  - Vamos conhecer o helper **link_to**
+  - Sabe-se que para colocar uma imagem em HTML usa-se por exemplo o ...
+    - <img src="http://abc.com/imagem.jpg"/>
+  - Você pode conseguir o resultado esperado para moedas, usando...
+    - <img src="<%= coin.url_image %>"/>
+  
