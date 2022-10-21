@@ -226,7 +226,33 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Esses métodos geralmente facilitam a vida do programador, fazendo com que menos código seja escrito para que se consiga o mesmo resultado
   - Vamos conhecer o helper **link_to**
   - Sabe-se que para colocar uma imagem em HTML usa-se por exemplo o ...
-    - <img src="http://abc.com/imagem.jpg"/>
+    - <img src="http://abc.com/imagem.jpg">
   - Você pode conseguir o resultado esperado para moedas, usando...
-    - <img src="<%= coin.url_image %>"/>
-  
+    - <img src="<%= coin.url_image %>"
+    - O Rails permite que você crue seus próprios Helpers.
+    - Para isso, existe uma pasta **app/helpers** que permite esse feito.
+    - Perceba que essa pasta possui um arquivo **application_helper.rb** e outros arquivos com o nome das views ***_helper.rb**
+    - Os nomes dos arquivos são para facilitar a orgasnização na hora de criar seus helpers
+    - Todos os helpers criados serão disponibilizados para as views
+    
+# Rotas e Rest
+  - HTTP
+    - Protocolo padrão de acesso a internet
+      - Verbos
+        - **GET**: Usado quando digitamos diretamente a URL no navegador
+        - **POST**: Usado por formulários da Web (dados enviados por 'debaixo dos panos')
+  - REST
+    - Representational State Transferer
+    - Transferência de Estado Representacional
+    - 2000 - Roy Filding
+    - Idealizou que o HTTP deveria ter 1 verbo para cada uma das ações do CRUD
+      - Foram adicionado dois verbos
+        - **PUT**: Usado para atualizar um dado(Update)"Aqui temos o **PATCH** com mesma funconalidade com uma minima diferença"
+        - **DELETE**: Usado para deletar um dado(Delete)
+  - Veja o mapeamento das rotas do Rails
+    - guides.rubyonrails.org/routing.html#crud-verbs-and-actions 
+  - Rotas
+    - O arquivo do Rails que faz o mapeamento das rotas é o **config/routes.rb**
+    - Para fazermos o mapeamento padrão devemos usar a instrução **root to:**
+      - root to: "welcome#index"
+    
