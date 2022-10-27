@@ -4,6 +4,7 @@ class CoinsController < ApplicationController
   # GET /coins or /coins.json
   def index
     @coins = Coin.all
+    @meu_nome = "Bruno"
   end
 
   # GET /coins/1 or /coins/1.json
