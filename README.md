@@ -3,7 +3,7 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 
 # Porque usar Ruby on Rails
 - O processo de programar é muito mais rápido do que em outros frameworks e linguagens...
-- As convenções Rails também tornam fácil para os desenvovledores se moverem entre diferentes projetos, onde cada um segue as mesmas estruturas e práticas de codificação....
+- As convenções Rails também tornam fácil para os desenvolvedores se moverem entre diferentes projetos, onde cada um segue as mesmas estruturas e práticas de codificação....
 - Rails é bom para Rapid Application Development(RAD), como framework é fácil incluir mudanças...
 - Código ruby é muito legível e auto-documentado. Isso melhora a produtividade pois escreve-se menos documentação separada do projeto e torna fácil outros desenvolvedores pegarem projetos existentes...
 - Rails tem sido desenvolvido com um grande foco em testes e possui bons frameworks de testes...
@@ -255,4 +255,59 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - O arquivo do Rails que faz o mapeamento das rotas é o **config/routes.rb**
     - Para fazermos o mapeamento padrão devemos usar a instrução **root to:**
       - root to: "welcome#index"
+# Rails Console
+  - O rails Console permite você interagir com sua aplicação a partir do terminal.
+    - você pode rodar o rails console com a  opção **-e** passando o ambiente que quer usar
+      - rails console -e production
+    - Você pode também usar o rails console com a opção **--sandbox** para que nenhum dado seja alterado na aplicação
+      - rails console -sandbox
+# Model via Rails Console
+  - No Rails console podemos trabalhar com qualquer model, bastndo para isso invocar o seu nome e usar métodos disponíveis a partir do Active Record.
+    - Coin.first #retorna o primeiro elemento
+    - Coin.last  #retorna o último elemento
+    - Coin.all   #retorna todos os elementos
+  - Perceba que om métodos anteriores first e last retornam um único elemento, já o método all retorna um **array** de elementos.
+    - Coin.all #retorna todos os elementos
+  - Ou seja, se for necessário, itere no array para conseguir cada um dos elementos
+    - Coin.all.each do |coin|
+    -   puts coin(por exemplo coin.description)
+    - end 
+  - Criando uma nova moeda
+    - c = Coin.new
+    - c.description = "Dash"
+    - c.acronym = "DASH"
+    - c.url_image = "http://"
+    - c.save!
+  - Outra forma de criar uma nova moeda.
+    - c = Coin.create!(
+    -   description: "Dash",
+    -   acronym: "DASH",
+    -   url_image: "http://"
+    - )
+# Identificando os "ambientes" no Rails
+  - Como identificar
+    - Rails c
+      - Rails.env
+      - ou
+      - Rails.env.development? ou production?
+ 
+# Variáveis de instância/sessão no Rails
+  - As variáveis que começam com "@" são variáveis de instância quando usamos a Orientação a Objetos
+                    
+                    
+                       class Pessoa
+                         @nome = ""
+                         def initialize(nome)
+                           @nome = nome
+                         end
+                         def meu_nome
+                           @nome
+                         end
+                       end
     
+  - As variáveis que conversam entre o controller e as views são as variáveis de instância/sessão, sempre que quiser passar uma variável do controller pra uma view utilize um "@"
+  - Pois bem, no caso do Rails é comum chamarmos as variáveis que começam com "@" de variáveis de sessão, visto que ssas variáveis terão um valor único para cada sessão do navegador que for aberta
+  - Observe o **app/controllers/coins-controller.rb**
+  - Para fazer um teste, nesse mesmo arquivo, nométodo **index** crie uma variável **@meu_nome = "Bruno"**
+  - Agora na view **app/views/coins/index.html.erb** adicione a linha **<%= @meu_nome %>** e salve
+  - Perceba que ao acessar a página, agora seu nome aparecera
