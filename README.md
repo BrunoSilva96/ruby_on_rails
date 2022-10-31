@@ -311,3 +311,45 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Para fazer um teste, nesse mesmo arquivo, nométodo **index** crie uma variável **@meu_nome = "Bruno"**
   - Agora na view **app/views/coins/index.html.erb** adicione a linha **<%= @meu_nome %>** e salve
   - Perceba que ao acessar a página, agora seu nome aparecera
+
+# Query Params para Requests
+  - Query Params são parâmetros enviados para o servidor através de URL
+  - Para isso basta usar, logo após a URL padrão, o símbolo de interrogação **"?"** seguido de um par **chave=valor** para o que se quer passar para o servidor.
+  - Vejamos o exemplo
+    - localhost:3000/?nome=Bruno&curso=Ruby%20on%2Rails
+    - acessando a URL acuma, podemos informar o parâmetro nome e curso para o servidor
+    - No servidor, no controller, podemos acessá-lo através da variável global params.
+      - params[:nome]
+      - params[:curso]
+    - Assim podemos usar o valor que foi passado (**Bruno**, **Ruby on Rails**) do jeito que quisermos.
+    
+# Partials
+  - Partials permitem você renderizar uma view dentro de outra, ou seja, "reutilizar páginas/views"
+  - Para isso cre um arquivo **_menu.html.erb**
+  - Perceba o _ "underline" no início do nome do arquivo
+  - Dentro dele coloque o conteúdo que está entre **<ul></ul>** da página **app/views/welcome/index.htmlerb**
+  - Agora na página que removeu o <ul> use o helper **render** para indicar o nome da partial para carregar o menu
+    - <%= render "menu" %>
+    
+# Layouts
+  - Quando acessamos uma URL o Rail, no momento em que vai eviar a resposta para o usuário, renderiza um layout padrão (application) antes de renderizar a view que solicitamos.
+  - A alteração feita em **layouts/application.html.erb** modifica todas as paginas linkadas a ela. 
+  
+# Fluxo MVC do CRUD(index)
+  - Tudo começa com uma requisição (**request**) que o usuário faz
+  - Essa requisiçãoé **roteada para um controller** e uma action
+  - A action/controller é processada e o resultado (**response**) é enviado para o usuário
+  - No caso da action **index**, todas as moedas no model **Coin** e enviadas através da variável de instância **@coins**
+  - Ao chegar na view, a variável **@coins** é iterada e **processada junto ao HTML** para que sejam mostradas todas a moedas
+  
+# Fluxo MVC do CRUD (Show e Delete) + Filtros Rails
+  - Filtros são métodos que podem rodar antes, depois e durante a ação de uma ação.
+    - Show
+      - No caso da action **show**,  a request é feita em conjunto com um ID que identifica qual a moeda que será mostrada.
+      - Ao chegar no controller a moeda é pesquisada pelo ID e enviada para a view através da variável **@coin**
+      - O Rails usa o conceito de filtros para buscar a moeda
+      - Ao chegar na view, os dados da moeda são mesclados ao HTML
+    - Delete 
+      - No caso da action **delete**, a request também é feita em conjunto com um ID que identifica a moeda
+      - Ao chegar no controller a moeda é pesquisada pelo ID e apagada e a requisição é redirecionada para a index novamente
+      
