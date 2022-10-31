@@ -1,4 +1,5 @@
 class CoinsController < ApplicationController
+  layout "adm"
   before_action :set_coin, only: %i[ show edit update destroy ]
 
   # GET /coins or /coins.json
@@ -8,7 +9,7 @@ class CoinsController < ApplicationController
   end
 
   # GET /coins/1 or /coins/1.json
-  def show
+  def showoins
   end
 
   # GET /coins/new

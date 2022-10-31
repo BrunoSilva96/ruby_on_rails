@@ -12,6 +12,7 @@
     <%= render coin %>
     <p>
       <%= link_to "Mostrar", coin %>
+      <%= button_to "Deletar", @coin, method: :delete %>
     </p>
   <% end %>
 </div>
