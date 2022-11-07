@@ -383,7 +383,7 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
  
 # Criando RakeTasks
   - No Rails é possível criar suas próprias tasks de forma muito simples. Para isso rode:
-    - rails g taks <nome do namespace> <nome da task>]
+    - rails g taks <nome do namespace> <nome da task>
     - Ex:
       - rails g task dev setup
     - Isso gerará a task **dev:setup** que pode ser usada para criarmos tudo necessário para a configuração do ambiente de desenvolvimento
