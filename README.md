@@ -352,4 +352,39 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - Delete 
       - No caso da action **delete**, a request também é feita em conjunto com um ID que identifica a moeda
       - Ao chegar no controller a moeda é pesquisada pelo ID e apagada e a requisição é redirecionada para a index novamente
-      
+  
+# Fluxo MVC do CRUD (New e Create)
+  - New
+    - Para gerar uma nova moeda será usado inicialmente um path para um novo elemento **coins/new**
+    - Ao acessar esse path. o controller **gera uma instância vazia do model Coin (Coin.new)**
+    - Isso fará com que a variável **@coin** possua todos os campos (vazios) e permitirá que o Rails possa montar a view (**new.html.erb**) com um formulário para a nova moeda
+  - Create
+    - O formulário é montado com o helper **form_with**
+    - Após preencher o formulário e clicar no botão para cadastrar a requisição do tipo **POST** será enviada ao controller que rodará a action create.
+    - Lá a nova moeda é criada com os dados que foram enviados do formulário. Tudo através da variável **params**
+    - Ao final a requisição é redirecionada para o **path show**, a fim de mostrar a moeda criada.
+
+# Fluxo MVC do CRUD (Edit e Update)
+  - Tudo começa com uma requisição (**request**) que o usuário faz para editar uma moeda
+  - A rota nos leva até a action **edit** que encontra o usuário e envia através da variável **@coin** a moeda a ser editada para a view **edit.html.erb**.
+  - Após editar a moeda na view o usuário clicará no botão para atualiá-la
+  - O botão submeterá as alterações via **PATCH** para a action **update**, que localiza e atualiza a moeda com os dados recebidos via **params**
+  - Após atualizar, o usuário é redirecionado para o **show**, que mostra os dados atuais da moeda.
+  
+# Permissão de parâmetros
+  - A permissão de parâmetros é uma prática que visa informar quais dados que estão chegando ao controller são permitidos para serem manipulados
+  - O Rails trata isso através do framework Action Controller e nos dá os métodos **require** e **permit** para usarmos com essa finalidade
+  
+# A task db:seed
+  - Imagine a seguinte situação... Você começa a testar seu software cadastrando novas moedas com todos os dados etc.
+  - Em dado momento, você precisa apagar todos os dados para corrigir algo no BD, ou mesmo, passa seu projeto para alguém sem os dados.
+  - O esforço e tempo dedicados para se cadastrar tudo novamente pode ser muito grande, visto que na medida que o software cresce, também cresce a complexidade dos dados envolvidos, como por exemplo, primeiro deve-se cadastrar moedas, depois usuários, depois os dependentes dos usuários e assim vai
+  - O Rails já possui um mecanismo para isso chamado "**db:seed"** que é a task que podemos invocar para fazer o preenchimento inicial dos dados.
+ 
+# Criando RakeTasks
+  - No Rails é possível criar suas próprias tasks de forma muito simples. Para isso rode:
+    - rails g taks <nome do namespace> <nome da task>]
+    - Ex:
+      - rails g task dev setup
+    - Isso gerará a task **dev:setup** que pode ser usada para criarmos tudo necessário para a configuração do ambiente de desenvolvimento
+      - Criar assim na pasta da task %x (rails db:drop db:create db:migrate db:seed)
