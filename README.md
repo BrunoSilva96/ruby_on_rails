@@ -388,3 +388,29 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
       - rails g task dev setup
     - Isso gerará a task **dev:setup** que pode ser usada para criarmos tudo necessário para a configuração do ambiente de desenvolvimento
       - Criar assim na pasta da task %x (rails db:drop db:create db:migrate db:seed)
+  - Melhorando a Rake Task
+    - Ao finalizar a aula anterior, percebemos o código recebeu muitas duplicações e isso não é legal
+    - Sendo assim, vamos melhorar o nosso código
+    - Primeiro, crie um método no arquivo dev.rake
+      
+                      def show_spinner(msg_start, msg_end = "Concluído!")
+                        spinner = TTY::Spinner.new("[:spinner]  #{msg_start}")
+                        spinner.auto_spin
+                        yield
+                        spinner.success("#{msg_end}")
+                      end
+                      
+    - Depois basta chamar o método quando precisar...
+      - show_spinner("Apagando banco de dados...") { %x(railsdb:drop) } #Se tiver mais de uma linha, colocamos o do...end
+
+# Refatorando o seeds.rb(find_or_create_by)
+  - Chegou a hora de melhorarmos também o **seeds.rb**
+  - Exemplo 
+                              coins.each do |coin|
+                                 Coin.find_or_create_by!(coin)
+                              end
+                              
+  - Antes de chamar o coins.each, fazer um hash contando o que queremos semear no banco de dados.
+                      
+# Modelando os dados da 2° parte do software
+  - Todo model identifica unicamente seus registros através de um ID adicionado de forma automática e incremental
