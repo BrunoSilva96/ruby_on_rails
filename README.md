@@ -414,3 +414,31 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                       
 # Modelando os dados da 2° parte do software
   - Todo model identifica unicamente seus registros através de um ID adicionado de forma automática e incremental
+  - Rodou mais um scaffold com duas propriedades, Description e Acronym.
+    - Após gerar o CRUD, faça a **migração** e ajuste o **linl** na págica principal da aplicação
+    - Aproveite e ajuste também o **db:seed** para cadastrar os tipos de mineração
+    
+# Criando uma migration "standalone"
+  - Vamos começar criando uma migração para o novo campo que sera adicionado na tabela de moedas(coins)
+    - rails generate migration (nome da nova migração)
+  - rails g migration AddMiningTypeToCoins mining_type:references
+  - Essa migração vai adicionar um campo na tabela coins que fará um relacionamento/associação com a tabela de tipos de mineração
+  - Perceba também que isso não cria nem altera nenhuma view
+  - Após criar a migração você deve executar o rails db:Migrate para que as alterações sejam aplicadas ao banco de dados
+
+# Associação "belongs_to"
+  - Por convenção o Rails "exige" que o campo que vai se relacionar com a outra tabela tenha o mesmo nome no singular
+  - Percebe-se que existe um **_id** no campo de referência, ficando **mining_type_id** para facilitar ainda mais o entendimento quando estamos programando. isso também é uma comvenção.
+  - Agora que já resolvemos o "lado das tabelas" precisamos também deixar o model funcionando nesse formato
+  - Para isso, adicione a associação ao model Coin **belongs_to :mining_type**
+  - Isso quer dizer que os registros desse model Coin estarão associados (pertecendo a) a um registro do model Mining Type
+    - Faça testes no **rails console**
+      - c = Coin.first
+      - m = MiningType.first
+      - c.mining_type = m
+      - c.save!
+# Associação "has_many"
+-----------------------
+# Ajustando a Task dev:add_coins
+  - Agora que temos as associações mapeadas e funcionando em nossa aplicação, devemos ajustar a Task dev:add_coins, para isso complemente as moedas como o modelo abaixo
+    - mining_type: MiningType.all.sample
