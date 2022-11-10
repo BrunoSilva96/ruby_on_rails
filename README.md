@@ -444,6 +444,10 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - m = Miningtype.first
     - m.coins
     
+# Ajustando a Task dev:add_coins
+  - Agora que temos as associações mapeadas e funcionando em nossa aplicação, devemos ajustar a Task dev:add_coins, para isso complemente as moedas como o modelo abaixo
+    - mining_type: MiningType.all.sample
+    
 # Métodos .map e o .pluck
   - Imagine que voc^tem um array e quer transformar ele em outro
     - Ex: [1,2,3,4,5] => [2,4,6,8,10]
@@ -468,6 +472,4 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Chegou a hora de ajustarmos a view para que seja possível selecionar o tipo de mineração, e para isso usaremos o helper **select**
     - Códigos em (views/coins/_form.html.erb)
 
-# Ajustando a Task dev:add_coins
-  - Agora que temos as associações mapeadas e funcionando em nossa aplicação, devemos ajustar a Task dev:add_coins, para isso complemente as moedas como o modelo abaixo
-    - mining_type: MiningType.all.sample
+
