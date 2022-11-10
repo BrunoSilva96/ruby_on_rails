@@ -436,9 +436,38 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
       - c = Coin.first
       - m = MiningType.first
       - c.mining_type = m
-      - c.save!
+  
 # Associação "has_many"
------------------------
+  - Percebemos que tudo já está pronto em nossa tabela, faltando apenas indicar ao model Miningtype que queremos efetuar essa associação
+  - Sendo assim, basta adicionar **has_many :coins** no model MiningType
+  - Faça o teste no **rails console**
+    - m = Miningtype.first
+    - m.coins
+    
+# Métodos .map e o .pluck
+  - Imagine que voc^tem um array e quer transformar ele em outro
+    - Ex: [1,2,3,4,5] => [2,4,6,8,10]
+  - Perceba que o segundo é baseado no primeiro
+  - Poderíamos fazer uma iteração no primeiro para obter o segundo facilmente, mas, o ruby possui um método quepermite a iteração de uma coleção retrnando um novo array no final.
+  - O método map funciona assim
+    - [1,2,3,4,5].map do |i|
+      - i*2
+    - end
+  - Ou se preferir
+    - [1,2,3,4,5].map { |i| i * 2}
+  - A saída será um novo array baseado no primeiro
+    - [2,4,6,8,10]
+   - Ainda sobre o método .map, podemos usá-lo em conjunto com hashes ou resultados no ActiveRecord, veja.
+   - Coin.all.map { |coin| coin.description }
+   - Uma forma de melhorar isso é usando o "ampersand"**&**
+   - Coin.all.map(&:description)
+   - Por fim, temos o método pluck, que funciona de forma parecida com o map, mas que reduz ainda mais o esforço na hora de obter elementos determinads resultados em formato de Array, a partir de resultados do ActiveRecord
+   - Coin.all.pluck(:description)
+   
+# Helper "select"
+  - Chegou a hora de ajustarmos a view para que seja possível selecionar o tipo de mineração, e para isso usaremos o helper **select**
+    - Códigos em (views/coins/_form.html.erb)
+
 # Ajustando a Task dev:add_coins
   - Agora que temos as associações mapeadas e funcionando em nossa aplicação, devemos ajustar a Task dev:add_coins, para isso complemente as moedas como o modelo abaixo
     - mining_type: MiningType.all.sample
