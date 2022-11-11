@@ -470,6 +470,40 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
    
 # Helper "select"
   - Chegou a hora de ajustarmos a view para que seja possível selecionar o tipo de mineração, e para isso usaremos o helper **select**
-    - Códigos em (views/coins/_form.html.erb)
+    - Códigos no arquivo de coins, dentro da pasta controller
+    - A primeira refatoração que podemos fazer na view é usar o pluck(no lugar do collect)
+    - Mas só usando o pluck ainda estamos "ferindo o MVC", então vamos "migrar" esse código para o controller, mais especificamente criando um método privado chamado **set_mining_type_options**
+                                      
+                                      def set_mining_type_options
+                                        @mining_type_options = MiningType.all.pluck(:description, :id)
+                                      end
+    
+    - Em seguida, crie um filtro para executar o método no **new, create, edit, update**
+      - before_action :set_mining_type_options, only: %i[new create edit update]
+    - Agora basta usar o @mining_type_options como opção do select, e agora estamos seguindo corretamente a arquitetura MVC.
 
-
+# Um pouco sobre arquivos YAML
+  - "YAML é um formato de serialização (codificação de dados) de dados legíveis por humanos"
+  - Veja esse exemplo
+    - Endereço: Rua Abelardo, número 09, CEP: 00.000-000
+    - Exemplo em YAML:
+                
+                                      endereço:
+                                        rua: Abelardo
+                                        numero: 09
+                                        cep: 00.000-000
+                                        
+    - Ao usar o YAML precisamos ter atenção na indentação do que é escrito, ou seja, o YAML se baseia no espaçamento e quebra de linhas
+    
+ 
+# Ativando o i18n
+  - **I18n** é a "sigla" para *internacionalization**
+  - A primeira coisa que vamos fazer é, adicionar a gem **'rails-i18n'** no **Gemfile** e na sequência informar ao Rails quais localidades devem estar disponíveis na aplicação
+  - Para isso, vamos na pasta **config/environments/(escolher onde queremos configurar o i18n)**
+  - Após a configuração, você pode usar pelo menos 3 métodos para identificar qual a localidade que a aplicação está atualmente e quais as localidades disponíveis
+    - I18n.avaliable_locales
+    - I18n.locale
+    - I18n.default_locale
+  - Criação do helper para identificar o idioma que está sendo usado na aplicação
+    - I18n.locale == :en ? "Estados Unidos" : "Portugês do Brasil"
+                                       
