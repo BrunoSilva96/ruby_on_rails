@@ -506,4 +506,13 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - I18n.default_locale
   - Criação do helper para identificar o idioma que está sendo usado na aplicação
     - I18n.locale == :en ? "Estados Unidos" : "Portugês do Brasil"
-                                       
+  ### Usando o i18n
+  - Em regras gerais, temos 2 métodos que podem fazer o uso do i18n
+  - O método **I18n.t()** e o método **I18n.l()**
+    - O primeiro vem de **translate**, onde informamos uma chave e recebemos uma tradução, baseada em arquivos YAML que ficam na pasta **config/locales.** 
+  - Para um teste, coloque em sua view I18n.t('hello') isso mostrará como saída na view "Hello World"
+  - Agora deixe como default pt-BR
+  - Crie uma chave hello: "Olá Mundo!"
+  - Inicie novamente a aplicação e veja agora que o texto mostrado é **"Olá Mundo!**
+  - Por fim, podemos usar o método I18n.l(), que vem de "localize" e tem a função de deixar datas e horas no formato da localidade atual
+  - Faça um teste na sua view I18n.l(Date.today) e veja que o resultado é a data já no formato brasileiro.
