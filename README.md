@@ -516,3 +516,65 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Inicie novamente a aplicação e veja agora que o texto mostrado é **"Olá Mundo!**
   - Por fim, podemos usar o método I18n.l(), que vem de "localize" e tem a função de deixar datas e horas no formato da localidade atual
   - Faça um teste na sua view I18n.l(Date.today) e veja que o resultado é a data já no formato brasileiro.
+
+  ### i18n para Models
+  - Para usar i18n nos models basta criar um arquivo **.yml** em **config/locales** com a seguinte estrutura:
+    - 'pt-BR'
+    -   activerecord:
+    -     models:
+    -       coin:
+    -         one: Moeda
+    -         other: Moedas
+    -     attributes:
+    -       coin: 
+    -         description: Descrição
+  - Após isso todos os **labels** dos formulários serão traduzidos de forma automática
+  - Se quiser foçar uma tradução use...
+    - Model.human_attribute_name(attribute)
+    
+#Cookies e Sessions
+  - Stateless vs Stateful
+  - Conexões HTTP são **stateless**, ou seja, **cada requisição é única** e o servidor nunca vai saber quem fez a requisição e o que ocorreu depois dela.
+  - Caso HTTP fosse **stateful**, ele **manteria o estado** entre as requisições, ou seja, o servidor saberia o "histórico" da requisição
+  - Para resulver o problema de ser stateless, podemos usar algumas soluções
+  ### Cookies
+  - Podemos usar cookies para armazenar dados no navegador, que podem ser persistidos entre requisições, para, por exemplo, um próximo retorno do usuário ao site.
+  - cookies[:user_name] = "Bruno Silva"
+  ### Sessions
+  - Sessions são muito parecidos com cookies, no entanto os dados são armazenados no servidor
+  - session[:user_name] = "Bruno Silva"
+  
+# Vários idiomas na mesma aplicação
+  - Uma das formas de se usar vários idiomas é através de parâmetros de URL
+  - No **ApplicationController** faça:
+  
+                                             before_action :set_locale
+
+                                             def set_locale
+                                                if params[:locale]
+                                                   cookies[:locale] = params[:locale]
+                                                end
+
+                                                if cookies[:locale]
+                                                   if I18n.locale != cookies[:locale]
+                                                      I18n.locale = cookies[:locale]
+                                                   end
+                                                end
+                                             end
+                                             
+  - Na view, crie dois links para os idiomas
+    - <%= link_to 'Português, root_path(locale: 'pt-BR') %>
+    - <%= link_to 'English, root_path(locale: 'en') %>
+    
+# Entendendo JS em uma aula
+  - Em desenvolvimento Web é praticamente impossível fazer algo que não envolva HTML, CSS e Javascript.
+  - Indo por partes, **HTML**(hyper Text Markup Language), é uma linguagem de marcação que permite estruturar uma página Web, indicando de forma semântica o que é o cabeçalho, rodapé, corpo e outras partes de uma página web
+  - A grosso modo podemos dizer que o HTML é o projeto arquitetônico
+  - Quando falamos em **CSS**(Cascanding Style Sheets) estamos flando, a grosso modo, em dar um visual ao nosso HTML
+  - Quando o HTML + CSS é renderizado pelo navegador, temos o resultado da página web.
+  - E onde entra o Javascript?
+  - Bem, o JS fará o funcionamento das coisas **dinâmicas** do site
+  - O JS, a principío, é uma linguagem que só funciona no navegador
+  - Uma das coisas mais importantes que o JS faz é permitir adicionar, remover e alterar o HTML enquanto é exibido pelo navegador
+  - Ou seja, só vamos conseguir páginas dinÂmicas usando Javascript em algum momento
+  - Exemplo na pasta Public
