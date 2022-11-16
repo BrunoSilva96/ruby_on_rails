@@ -1,6 +1,7 @@
 ---
 pt-BR:
   hello: "Olá mundo!"
+  actual_locale: "Português do Brasil"
   links:
     edit: "Editar"
     show: "Mostrar"
@@ -13,6 +14,29 @@ pt-BR:
         restrict_dependent_destroy:
           has_one: Não é possível excluir o registro pois existe um %{record} dependente
           has_many: Não é possível excluir o registro pois existem %{record} dependentes
+    models:
+      coin:
+        one: Moeda
+        other: Moedas
+      mining_types:
+        one: Tipo de Mineração
+        other: Tipos de Mineração
+    attributes:
+      coin:
+        id: Código
+        description: Descrição
+        acronym: Sigla
+        url_image: URL da Imagem
+        mining_type: Tipo de Mineração
+        mining_type_id: Tipo de Mineração
+        updated_at: Atualizado em
+        created_at: Criado em
+      mining_type:
+        id: Código
+        description: Descrição
+        acronym: Sigla
+        updated_at: Atualizado em
+        created_at: Criado em
   date:
     abbr_day_names:
       - Dom
