@@ -578,3 +578,21 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Uma das coisas mais importantes que o JS faz é permitir adicionar, remover e alterar o HTML enquanto é exibido pelo navegador
   - Ou seja, só vamos conseguir páginas dinÂmicas usando Javascript em algum momento
   - Exemplo na pasta Public
+
+# Asset Pipeline
+  - Quando falamos de "assets" em desenvolvimento web estamos na maioria das vezes falando sobre **imagens, CSS e Javascript**
+  - Veja a pasta **app/assets** da sua aplicação, Não por acaso ela possui as pastas **imagems e stylesheets**
+  - O asset pipeline do Rails permite concatenar, minificar ou comprimir assets CSS e javascript gerando ao final apenas um arquivo pra **diminuir a quantidade de requisições que o navegador faz ao servidor**
+  - A ideia de "asset pipeline" é fazer os assets passarem por "vários estágios/etapas"(minificar, concatenar, etc) até atingir um único asset final
+  - O asset pipeline na verdade é uma gem chamada **sprockets-rails** que foi unificado ao Rails, ou seja, era um projeto externo
+  
+  ### Fingerprint
+  - Todo arquivo CSS/JS carregado no navegador está propício a cache, visto que quanto menos requisições forem feitas ao servidor, melhor
+  - No entanto, quando estamos desenvolvendo a aplicação, é normal que alteremos os assets com certa frequência e isso pode acabar "confundindo" o navegador em relação a fazer o cache
+  - Sendo assim, o Rails utiliza uma técnica de "fingerprint" para contornar esse problema
+  - Essa técnica consiste basicamente em fazer com que o nome do arquivo seja alterado a cada alteração no mesmo e isso por si só já evita o cache do navegador
+  ### Organização dos Assets
+  - Os assets devem ficar em pastas específicas
+    - **app/assets:** Para assets criados pelo próprio Rails
+    - **lib/assets:** Para assets que você mesmo criou
+    - **vendor/assets:** Para assets que você "pegou" de terceiros
