@@ -596,3 +596,17 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - **app/assets:** Para assets criados pelo próprio Rails
     - **lib/assets:** Para assets que você mesmo criou
     - **vendor/assets:** Para assets que você "pegou" de terceiros
+
+# ERB + CSS
+  - Para usar código ruby misturado ao seu CSS, basta que vocÊ altere a extensão do arquivo css/scss para **css.erb** ou **scss.erb**
+  - Para nosso exemplo, altere o arquivo **app/stylesheets/application.scss.erb**
+  - body { background-color: <%= Rails.env.development? ? 'white' : 'yellow' %> }
+### SASS
+- Como falado anteriormente, o SASS adicion superpoderes ao seu CSS, mas, uma das coisas que mesmo você nçao send do front-end deve aprender a usar é a tag para referir-se aos assets. Nesse caso, uma imagem, por exemplo
+- Comece baixando uma imagem e colocando-a em **lib/images**
+
+# Usando tasks para pré-compilar assets
+  - Sendo assim, para fazer um teste rode
+    - **rails assets:precompile**
+  - Após o comando finalizar, observe a pasta **public/assets**, bem como o arquivo **.sprockets-manifest*** que contém a referência para todos os arquivos
+  - Como a pré-compilação só é necessária em produção, vamos usar uma task para remover os assets pré-compilados. Rode **rails assets:clobber**
