@@ -610,3 +610,7 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - **rails assets:precompile**
   - Após o comando finalizar, observe a pasta **public/assets**, bem como o arquivo **.sprockets-manifest*** que contém a referência para todos os arquivos
   - Como a pré-compilação só é necessária em produção, vamos usar uma task para remover os assets pré-compilados. Rode **rails assets:clobber**
+
+# Conhecendo o Yarn
+  - Yarn
+    - O Yarn é um gerenciador de pacotes parabibliotecas Javascript adotado pela comunidade Rails na versão 5.1. Ele facilita bastante quando queremos usar uma biblioteca JS, evitando que precisemos informar ao asset pipeline os arquivos que devem ser pré-compilados, bastando apenas carregar e usar a biblioteca
