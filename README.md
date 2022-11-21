@@ -614,3 +614,9 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 # Conhecendo o Yarn
   - Yarn
     - O Yarn é um gerenciador de pacotes parabibliotecas Javascript adotado pela comunidade Rails na versão 5.1. Ele facilita bastante quando queremos usar uma biblioteca JS, evitando que precisemos informar ao asset pipeline os arquivos que devem ser pré-compilados, bastando apenas carregar e usar a biblioteca
+    - Atenção: O Yarn NÃO é um projeto que o time de desenvolvimento Ruby on Rails mantém, eles apenas recomendam o uso e dão a possibilidade de se usar o yarn em projetos Rails
+  
+# Bootstrap
+  - Bootstrap
+    - É um kit de ferramentas dara desenvolver com HTML, CSS e JS.
+    - Link qeu achei para usar o bootstrap no Rails 7 (https://www.youtube.com/watch?v=jyqjecyCv3A) 
