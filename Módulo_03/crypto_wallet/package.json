@@ -1,0 +1,20 @@
+{
+  "name": "crypto_wallet",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Bruno",
+  "license": "MIT",
+  "dependencies": {
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.2",
+    "bootstrap-icons": "^1.10.2",
+    "jquery": "^3.6.1",
+    "notify-js-legacy": "^0.4.1",
+    "popper.js": "^1.16.1",
+    "sass": "^1.56.1"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --source --outdir=app/assets/builds",
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  }
+}
