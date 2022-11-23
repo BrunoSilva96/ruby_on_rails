@@ -1,12 +1,24 @@
 ---
 pt-BR:
   hello: "Olá mundo!"
-  actual_locale: "Português do Brasil"
+  current_locale: "Português do Brasil"
+  welcome: "Seja Bem-Vindo!"
+  messages:
+    welcome: "Essa é a CryptoWallet, uma app para você cadastrar e acompanhar as suas criptomoedas."
+    menu: "Para começar, selecione uma das opções abaixo:"
+    confirm: "Tem certeza?"
   links:
     edit: "Editar"
     show: "Mostrar"
     delete: "Deletar"
-    new: "Nova"
+    back: "Voltar"
+  new:
+    coin: "Nova Moeda"
+    mining_type: "Novo Tipo de Mineração"
+    select: "Selecione"
+  editing:
+    coin: "Editando Moeda"
+    mining_type: "Editando Tipo de Mineração"
   activerecord:
     errors:
       messages:
