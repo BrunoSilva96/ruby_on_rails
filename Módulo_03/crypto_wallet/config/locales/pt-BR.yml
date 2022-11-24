@@ -30,7 +30,7 @@ pt-BR:
       coin:
         one: Moeda
         other: Moedas
-      mining_types:
+      mining_type:
         one: Tipo de Mineração
         other: Tipos de Mineração
     attributes:

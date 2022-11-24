@@ -59,8 +59,8 @@ namespace :dev do
     show_spinner("Cadastrando tipos de mineração...") do
       mining_types = [
         {description: "Proof of Work", acronym: "PoW"},
-        {description: "Proff of Stake", acronym: "PoS"},
-        {description: "Proff of Capacity", acronym: "PoC"}
+        {description: "Proof of Stake", acronym: "PoS"},
+        {description: "Proof of Capacity", acronym: "PoC"}
       ]
 
       mining_types.each do  |mining_type|
