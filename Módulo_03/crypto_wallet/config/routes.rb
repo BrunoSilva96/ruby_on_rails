@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   get '/inicio', to: 'welcome#index'# Leva para a pagina principal
 
-
   resources :coins
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
