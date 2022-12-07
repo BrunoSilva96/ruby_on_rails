@@ -620,3 +620,6 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Bootstrap
     - É um kit de ferramentas dara desenvolver com HTML, CSS e JS.
     - Link qeu achei para usar o bootstrap no Rails 7 (https://www.youtube.com/watch?v=jyqjecyCv3A) 
+
+# Módulo 05
+  - Nesse módulo vamos desenvolver uma aplicação de questões onde podemos como administrados, adicionar, deletar editar as perguntas e como usuario iremos poder somente responder.
