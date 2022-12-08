@@ -623,3 +623,18 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 
 # Módulo 05
   - Nesse módulo vamos desenvolver uma aplicação de questões onde podemos como administrados, adicionar, deletar editar as perguntas e como usuario iremos poder somente responder.
+
+# Devise
+  - Devise é um gem que gera todos os códigos e caminhos necessários para criar contas, log in, log out, etc.
+  - Apos rodar o bundle, vamos na pasta config/environments/development.rb e colamos a seguinte linha de codigo
+    - config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } 
+  - O comando '$ rails generate devise MODEL' faz com que o devise crie arquivos controlados por ele em nosso projeto(Models, Migrates).
+  - Ativar a marcação true em config/initializers/devise.rb na linha onde esta escrito 'config.scoped_views = false'
+  - Assim podemos rodar o comando 'rails generate devise:views Admins' e o Profiles, assim podendo criar as paginas de views separadas.
+  - Roda um rails db:migrate para vê se está tudo funcionando corretamente.
+  - Ativação do I18n no Devise (Após ativar o I18n na nossa aplicação)
+  - Tradução I18n do Devise completa (https://gist.github.com/victorximenis/24edd5bb21b640a351e8f5367d7ecc2c) 
+  - Para criar o backoffice do Admin e do profile daremos o comando no terminal..
+    - rails g controller admins_backoffice/welcome index
+    - rails g controller profiles_backoffice/welcome index
+  
