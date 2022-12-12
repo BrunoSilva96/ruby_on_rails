@@ -637,4 +637,10 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Para criar o backoffice do Admin e do profile daremos o comando no terminal..
     - rails g controller admins_backoffice/welcome index
     - rails g controller profiles_backoffice/welcome index
+# Ajuste no sistema de layouts
+  - Criação de novos controllerns (rails g controller admins_backoffice & profiles_backoffice)
+  - Alterar a herança dos controllers que já existiam para herdar de seus novos e respectivos controllers
+  - Criar novo arquivo de layout baseado no **application.html.erb** (admins e prfiles)
+  - Indicar os layout que os novos controllers devem usar
+  
   
