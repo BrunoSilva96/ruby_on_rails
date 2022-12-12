@@ -630,17 +630,45 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } 
   - O comando '$ rails generate devise MODEL' faz com que o devise crie arquivos controlados por ele em nosso projeto(Models, Migrates).
   - Ativar a marcação true em config/initializers/devise.rb na linha onde esta escrito 'config.scoped_views = false'
-  - Assim podemos rodar o comando 'rails generate devise:views Admins' e o Profiles, assim podendo criar as paginas de views separadas.
+  - Assim podemos rodar o comando 'rails generate devise:views Admins' e o Users , assim podendo criar as paginas de views separadas.
   - Roda um rails db:migrate para vê se está tudo funcionando corretamente.
   - Ativação do I18n no Devise (Após ativar o I18n na nossa aplicação)
   - Tradução I18n do Devise completa (https://gist.github.com/victorximenis/24edd5bb21b640a351e8f5367d7ecc2c) 
   - Para criar o backoffice do Admin e do profile daremos o comando no terminal..
     - rails g controller admins_backoffice/welcome index
-    - rails g controller profiles_backoffice/welcome index
+    - rails g controller users_backoffice/welcome index
 # Ajuste no sistema de layouts
-  - Criação de novos controllerns (rails g controller admins_backoffice & profiles_backoffice)
+  - Criação de novos controllerns (rails g controller admins_backoffice & users_backoffice)
   - Alterar a herança dos controllers que já existiam para herdar de seus novos e respectivos controllers
-  - Criar novo arquivo de layout baseado no **application.html.erb** (admins e prfiles)
+  - Criar novo arquivo de layout baseado no **application.html.erb** (admins e users)
   - Indicar os layout que os novos controllers devem usar
+  - Remover o controller welcome e criar um novo baseado no namespace site, depois vamos criar um controller site para ser o controller 'pai'
+    - rails d controller welcome
+    - rails g controller site/welcome index
+  - Alterar a herança do controller e adicionar o layout
+  - Criar o novo layout baseado no **application.html.erb**
+  - E modificar as rotas
   
-  
+# Uma amostra de metaprogramação
+  - Usando o define_method
+                                        
+                                        
+                                      class User
+                                        def initialize(name)
+                                          User.create_method(name)
+                                        end
+                                        
+                                        def self.create_method(name)
+                                          define_method :"speak_#{name.downcase}!" do
+                                            "Hello, everyone! I'm #{name}!"
+                                          end
+                                        end
+                                      end
+                                      
+                                      u = User.new("Bruno")
+                                      puts u.speak_Bruno!
+                                      
+                                      
+# Colocando a autenticação do Devise
+  - Para proteger basta mudar no controller admin e user o método
+    - before_action :authenticate_**nome do model!**
