@@ -672,3 +672,21 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 # Colocando a autenticação do Devise
   - Para proteger basta mudar no controller admin e user o método
     - before_action :authenticate_**nome do model!**
+
+# Criando uma 'rake task' para os usuários padrão
+  - Vamos começar criando uma task
+    - rails g task dev setup
+  - Adicione a gem e rode o bundle
+    - gem 'tty-spinner'
+  - Criar uma task para cadastrar o Usuário e o Admin padrão  
+  
+### Aula 135, criando o logoff
+  - Ir em rails/info/routes e pegar o path de logoff
+  - No arquivo da view do backoffice de cada um (admin, user) criar um button_to com o path para o logoff
+  
+# Disponibilizando os temas localmente
+  - Comece indo na pasta **public** e criando uma pasta chamada templates, em seguida, entre na pasta template e clone o projeto gentelella, por fim, apague a pasta .git
+  - Na sequência, volte para a pasta raiz do projeto, inicie o rails e verifique se você consegue acessar o template que ficou na pasta **production**
+  - Novamente na pasta **public/templates** e clone no SBAdmin2, e apague também a pasta .git
+  - Verificar se ambas estão funcionando localmente.
+
