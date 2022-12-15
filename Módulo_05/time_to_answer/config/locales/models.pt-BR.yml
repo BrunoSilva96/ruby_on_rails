@@ -1,12 +1,12 @@
-"pt-BR":
-  activerecords:
+'pt-BR':
+  activerecord:
     models:
       admin:
         one: Administrador
         other: Administradores
       user:
         one: Usuário
-        others: Usuários
+        other: Usuários  
     attributes:
       admin:
         id: Código
@@ -17,4 +17,4 @@
         id: Código
         email: Email
         created_at: Criado em
-        updated_at: Atualizado em
+        updated_at: Atualizado ems
