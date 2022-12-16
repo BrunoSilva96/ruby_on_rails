@@ -690,3 +690,52 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Novamente na pasta **public/templates** e clone no SBAdmin2, e apague também a pasta .git
   - Verificar se ambas estão funcionando localmente.
 
+# Adicionando as templates no projeto
+  - SBAdmin para o Admin
+    - Remover turbolinks
+    - Pesquise as bibliotecas JS/CSS contidas no template e adicione via Yarn.
+    - Copie o layout para (layouts/admin_backoffice.html.erb)
+    - Ajustar o application.css e application.js (removendo o require tree)
+    - Substituir os CSS's do template no admin_backoffice.css
+    - Adicione o sb-admin-2.css em lib/assets/stylesheets
+    - Adicione o sb-admin-2.js em lib/assets/javascripts
+    - Repita esse processo com os arquivos JS
+    - Adicionar o admins_backoffice.js e o admins_backoffice.css para pré compilar em config/initializers/assets.rb
+    - Adicionar o sb-admin-2.js e o sb-admin-2.css para pré compilar em config/initializers/assets.rb
+  - Gentelella para User
+    - Pesquise as bibliotecas JS/CSS contidas no template e adicione via Yarn.
+    - Copie o layout para (layouts/user_backoffice.html.erb)
+    - Ajustar o application.css e application.js (removendo o require tree)
+    - Substituir os CSS's do template no user_backoffice.css
+    - Adicione o custom.css em lib/assets/stylesheets
+    - Adicione o custom.js em lib/assets/javascripts
+    - Repita esse processo com os arquivos JS
+    - Adicionar o users_backoffice.js e o users_backoffice.css para pré compilar em config/initializers/assets.rb
+    - Adicionar o custom.js e o custom.css para pré compilar em config/initializers/assets.rb
+    - O jQuery é diferente da versão que usamos no sb-admin-2, então requer a cópia da pasta jQuery do gentelella, colar na vendor la na raiz do projeto e para facilitar a leitura, mudar o nome para a versão que estamos a utilizar, e pré compilar o jQuery que acabamos de copiar.
+    
+# Ajustando o Logoff para o Admin
+  - Altere o arquivo
+    - **app/views/layout/admins_backoffice.html.erb** deixando o menu dropdown assim:
+                                                
+                                                
+                                                <ul class="dropdown-menu dropdown-user">
+                                                    <li>
+                                                        <%= link_to destroy_admin_session_path, method: :delete do %>
+                                                            <i class="fa fa-sign-out fa-fw"></i> Sair
+                                                        <%end%>
+                                                    </li>
+                                                </ul>
+                                                
+# Ajustando o Logoff para o Admin
+  - Altere o arquivo
+    - **app/views/layout/users_backoffice.html.erb** deixando o menu dropdown assim:
+                                                
+                                                
+                                                <ul class="dropdown-menu dropdown-user">
+                                                    <li>
+                                                        <%= link_to destroy_user_session_path, method: :delete do %>
+                                                            <i class="fa fa-sign-out pull-right"></i> Sair
+                                                        <%end%>
+                                                    </li>
+                                                </ul>
