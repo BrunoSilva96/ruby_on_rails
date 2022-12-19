@@ -729,7 +729,7 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                                                 
 # Ajustando o Logoff para o Admin
   - Altere o arquivo
-    - **app/views/layout/users_backoffice.html.erb** deixando o menu dropdown assim:
+  - **app/views/layout/users_backoffice.html.erb** deixando o menu dropdown assim:
                                                 
                                                 
                                                 <ul class="dropdown-menu dropdown-user">
@@ -739,3 +739,44 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                                                         <%end%>
                                                     </li>
                                                 </ul>
+
+# Ajustes na parte administrativa
+  - Remoção das opções do menu lateral e adição da parte administrativa
+  ### Criação de task para cadastro de Admins
+  - Instalar a gem faker
+  - Criar a task e no lugar do email rodar a gem 'Faker::Internet.email', informando o numero de vezes com 'x.times do ||'
+  - Para facilitar a leitura de dados no rails console, instalar a gem 'awesome_print ou pry-rails'
+  ### Criando controller Admins
+  - rails g controller AdminsBackoffice::Admins index
+  - Apos mudar a herança do controller para AdminsBackofficeController
+  - Alterar o link no admins_backoffice.html.erb para a nova rota que foi gerada pelo controller
+  ### Adicionando uma tabela para listar os Admins
+  - Criar uma variavel no controller de admins_backoffice/admins_controller.rb
+    - @admins = Admin.all
+  - Adicione uma tabela no html.erb
+  - Depois alterar para o seguinte código
+                                            
+                                      <tbody>
+                                        <% @admins.each do |admin| %>
+                                          <tr>
+                                            <td><%= admin.id %></td>
+                                            <td><%= admin.email %></td>
+                                            <td style="width: 85px">
+                                              <button type="button" class="btn btn-primary btn-circle">
+                                                <i class="fa fa-edit"></i>
+                                              </button> 
+                                              <button type="button" class="btn btn-danger btn-circle">
+                                                <i class="fa fa-minus"></i>
+                                              </button> 
+                                            </td>
+                                          </tr>
+                                        <% end %>
+                                       </tbody>
+   ### Ajustando a rota do Admin
+   - Alterar no arquivo de rotas o caminho para a página index
+    - Tirar as rotas do admins_backoffice e adicionar a seguinte linha
+    - **resources :admins, only: [:index]**
+    - Alterar o link de acesso no layout de admins_backoffice.html.erb para **admins_backoffice_admins_path**
+      
+      
+    
