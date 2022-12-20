@@ -777,6 +777,36 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
     - Tirar as rotas do admins_backoffice e adicionar a seguinte linha
     - **resources :admins, only: [:index]**
     - Alterar o link de acesso no layout de admins_backoffice.html.erb para **admins_backoffice_admins_path**
-      
+   ### Ajustando a rota Edit para o Admin
+   - Criar uma nova view em admins_backoffice/admin chamada edit.html.erb com o conteudo...
+    - <%= @admin.inspect %>
+   - Alterar a rota adicionando a rota **:edit** depois do index
+   - Adicione a nova rota no botão de edição da index.html.erb do admins_backoffice
+    - edit_admins_backoffice_admin_path(admin) 'o admin ta como parametro passando o id'
+   - E alterar o controller admins_controiller.rb para 
+              
+                
+                def edit
+                  @admin = Admin.find(params[:id])
+                end
+                
+   ### Criação do formulário de edição para o Admin
+   - Alterar o arquivo edit.html.erb de admins_backoffice, colocando um header do bootstrap e um formulario com 3 campos, ao final adicionar um botão para submeter a edição
+   ### Finalizando o formulário de edição do Admin
+   - Adicionar o :update na rota, depois do edit
+   - Alterar o formulário de edição para erb(app/views/admins_backoffice/admins/edit.html.erb)
+   - Adicionar o metódo de update no controller de admins_backoffice/admins_controller.rb
+                              
+                    def update
+                      admin = Admin.find(params[:id])
+                      params_admin = params.require(:admin).permit(:email, :password, :password_confirmation)
+                      if admin.update(params_admin)
+                        redirect_to admins_backoffice_admins_path, notice: "Adminisstrados atualizado com sucesso!"
+                      else
+                        render :edit, notice: "Erro na atualização do Administrador"
+                      end
+                    end    
+                              
+  - Adicionar as traduções de password e password confirmation nos models do I18n
       
     
