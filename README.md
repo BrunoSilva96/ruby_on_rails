@@ -798,9 +798,9 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
    - Adicionar o metódo de update no controller de admins_backoffice/admins_controller.rb
                               
                     def update
-                      admin = Admin.find(params[:id])
+                      @admin = Admin.find(params[:id])
                       params_admin = params.require(:admin).permit(:email, :password, :password_confirmation)
-                      if admin.update(params_admin)
+                      if @admin.update(params_admin)
                         redirect_to admins_backoffice_admins_path, notice: "Adminisstrados atualizado com sucesso!"
                       else
                         render :edit, notice: "Erro na atualização do Administrador"
@@ -809,4 +809,20 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                               
   - Adicionar as traduções de password e password confirmation nos models do I18n
       
-    
+  ### Comandos para saber se tem e quais são os erros do objeto
+  - objeto.errors
+  - objeto.errors.any?
+  - objeto.errors.full_messages
+  - Para captar o erro e mostrar na tela é necessario o código
+  
+                    <% if @admin.errors.any? %>
+                      <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                          <ul>
+                            <% @admin.errors.full_messages.each do |message| %>
+                            <li> <%= message %> </li>
+                            <% end %>
+                          </ul>
+                      </div>
+                    <% end %>
+  
