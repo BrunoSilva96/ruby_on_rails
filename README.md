@@ -826,3 +826,32 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                       </div>
                     <% end %>
   
+ ### Alterando a senha do Admin
+ - Adicioanr o seguinte código no controller, dentro do método update, vai permitir alterar somente o email sem a precisar da senha, e da senha sozinha.
+                      
+                       if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?
+                        params[:admin].extract!(:password, :password_confirmation)
+                       end
+### Refatorando o controller do Admin
+- Alterar o arquivo admins controller separando três métodos que devem ser privados
+                      
+                      private
+
+                      def verify_password
+                        if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?
+                          params[:admin].extract!(:password, :password_confirmation)
+                        end
+                      end
+
+                      def params_admin
+                        params_admin = params.require(:admin).permit(:email, :password, :password_confirmation)
+                      end
+
+                      def set_admin
+                        @admin = Admin.find(params[:id])
+                      end
+                      
+- e no inicio do controller de Admin, adicionar o before action para chamar esses métodos
+                      
+                      before_action :verify_password, only: [:update]
+                      before_action :set_admin, only: [:edit, :update]
