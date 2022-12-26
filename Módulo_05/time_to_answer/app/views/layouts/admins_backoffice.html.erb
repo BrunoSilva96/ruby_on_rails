@@ -20,7 +20,7 @@
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      < src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
 
@@ -100,6 +100,20 @@
 
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'admins_backoffice' %>
+
+    <% if notice %>
+      <%= javascript_tag do %>
+        $.bootstrapGrowl("<%= notice %>", {
+        type: 'success', // (null, 'info', 'danger', 'success')
+        align: 'right', // ('left', 'right', or 'center')
+        width: 250, // (integer, or 'auto')
+        delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+        allow_dismiss: true, // If true then will display a cross to close the popup.
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+        });
+      <% end %>
+    <% end %>
+    
 </body>
 
 </html>
