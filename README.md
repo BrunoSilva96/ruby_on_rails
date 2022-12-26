@@ -851,7 +851,88 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                         @admin = Admin.find(params[:id])
                       end
                       
-- e no inicio do controller de Admin, adicionar o before action para chamar esses métodos
+- E no inicio do controller de Admin, adicionar o before action para chamar esses métodos
                       
                       before_action :verify_password, only: [:update]
                       before_action :set_admin, only: [:edit, :update]
+### Implementando a criação de um novo Administrador
+- Alterar o arquivo **config/routes.rb** na parte...
+  - resources :admins, except: [:destroy] # Administradores
+- Alterar o arquivo **admins_backoffice/admins/index.html.erb**
+
+            <th>
+                <%= link_to new_admins_backoffice_admin_path, class:"btn btn-success btn-circle" do %>
+                  <i class="fa fa-plus"></i>
+                <% end %>
+              </th>
+            </tr>
+         
+- Criar um arquivo em **views/admins_backoffice/admins** chamado **new.html.erb** com o mesmo conteudo do **edit.html.erb**
+- Criar as action new e create no controller do admins_backoffice.rb
+
+            def new
+              @admin = Admin.new
+            end
+
+            def create
+              @admin = Admin.new(params_admin)
+              if @admin.save
+                redirect_to admins_backoffice_admins_path, notice: "Adminisstrados cadastrado com sucesso!"
+              else
+                render :new
+              end
+            end
+           
+### Mostrando as notificações
+- Para as notificações itemos usar o Bootstrap Growl
+- Comece adicionando a biblioteca **bootstrap-growl** via yanr
+  - yarn add bootstrap-growl-ifightcrime
+- Na sequência adicione em **app/assets/javacripts/admins_backoffice.coffee**
+  - //= require bootstrap-growl-ifightcrime/jquiery.bootstrap-growl
+- Em layouts de admins_backoffice.html.erb adicionar após a tag de javascript o seguinte código
+        
+            <% if notice %>
+              <%= javascript_tag do %>
+                $.bootstrapGrowl("<%= notice %>", {
+                type: 'success', // (null, 'info', 'danger', 'success')
+                align: 'right', // ('left', 'right', or 'center')
+                width: 250, // (integer, or 'auto')
+                delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                allow_dismiss: true, // If true then will display a cross to close the popup.
+                stackup_spacing: 10 // spacing between consecutively stacked growls.
+                });
+              <% end %>
+            <% end %>
+            
+ ### Apagando Administrador
+ - Começa por liberar a rota destroy em rotas.rb
+ - Agora adicionar a action **destroy** no controller **admins_backoffice/admins_controller.rb**
+ 
+            def destroy
+              if @admin.destroy
+                redirect_to admins_backoffice_admins_path, notice: "Administrador excluído com sucesso!"
+              else
+                render :index
+              end
+            end
+            
+- Adicionar a action **:destroy** na **before_action :set_admin**
+- E por fim troque o lindo do botão excluir para
+      
+       <%= link_to admins_backoffice_admin_path(admin), method: :delete,class:"btn btn-danger btn-circle", data: { confirm: 'Deseja realmente excluir esse administrador?' } do %>
+              <i class="fa fa-minus"></i>
+       <% end %>
+            
+### Refatorando as views com partials
+- Primeiro criar o arquivo
+  - app/views/admins_backoffice/admins/**shared/_form.html.erb**
+- Copiar o conteudode **new.html.erb** e adicionar no _form.html.erb
+- Alterar onde aparece o nome editando e novo para
+        
+        linha 03     <h1 class="page-header"><%= action_message %></h1>
+        linha 10     <%= "#{action_message} Administrador" %>
+        
+- Apague todo conteudo de new e de edit e adicionar o seguinte comando
+          
+        <%= render partial: 'admins_backoffice/admins/shared/form', 
+           locals: { action_message: 'Novo(ou Editando)' } %>
