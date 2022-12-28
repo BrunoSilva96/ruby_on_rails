@@ -936,3 +936,31 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
           
         <%= render partial: 'admins_backoffice/admins/shared/form', 
            locals: { action_message: 'Novo(ou Editando)' } %>
+
+# Adicionando paginação (Kaminari)
+  - Para fazer vamos usar a gem kaminari
+  - Comece adicionando as gems no seu **Gemfile**
+    - gem 'kaminari'
+    - gem 'kaminari-i18n'
+  - Na sequência rode o bundle
+  - Alterar o controller admins conforme abaixo...
+  
+     
+             def index
+              @admins = Admin.all.page(params[:page]).per(5)
+             end
+             
+     
+  - Ou no model  adicionando o a seguinte linha
+    - paginates_per 5
+  - Alterar a view conforme abaixo, após a chamada do javascript
+  
+    
+                <div class="text-center">
+                  <%= paginate @admins %>
+                </div>
+                
+    
+  - Criar as views do kaminari para o tema do **bootstrap3**
+    - rails g kaminari:views bootstrap3
+  
