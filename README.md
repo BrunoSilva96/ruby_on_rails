@@ -964,3 +964,66 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Criar as views do kaminari para o tema do **bootstrap3**
     - rails g kaminari:views bootstrap3
   
+# Modelando cadastro de questões
+### Criando as migrations para as questões
+-  Vamos começar pelo model **Subject** que "não depende de ninguém"
+  - rails g model subject description:string
+- Na sequência vamos criar o model **Question**
+  - rails g model question description:text subject:references
+- Por ultimo o crie o model **Answer**
+  - rails g model answer question:references descripton:text correct:boolean
+- Agora use os modificadores de coluna onde precisar
+  - Dizem para as migrates o que deve ser feito com cada um dos campos
+- Por fim, aplicar a migration
+  - rails db:migrate
+ 
+### Criando uma Task para os assuntos/áreas
+- piar o conteúdo do link
+  - gist.github.com/jacksonpires/ce74b758cef750cac3613c4e2c489a68
+- Criar um arquivo (**time_to_answer/lib/tmp/subjects.txt**) e cole o conteúdo copiado
+- Alterar o arquivo **lib/tasks/dev.rake**
+  - Linha 4
+    - DEFAULT_FILES_PATH = File.join(Rails.root, 'lib', 'tmp')
+  - Linha 15
+    - show_spinner("Cadastrando assuntos  padrões...") { %x(rails dev:add_subjects) }
+- E adicionar a task de criação
+   
+              desc "Adiciona assuntos padrões"
+              task add_subjects: :environment do
+                file_name = 'subjects.txt'
+                file_path = File.join(DEFAULT_FILES_PATH, file_name)
+
+                File.open(file_path, 'r').each do |line|
+                  Subject.create!(description: line.strip)
+                end
+              end 
+              
+ - Agora é so testar
+  - rails dev:add_subjects
+### Criando o controller para Subjects
+- Comece criando o controller
+  - rails g controller AdminsBackoffice/Subject
+- Alterar o controller de subjects
+  - Copiar todo o conteúdo do controller de Admin e fazer as devidas alterações para Subjects
+- Alterar o menu, adicionando mais um item em **app/views/layouts/admins_backoffice.html.erb**
+  
+            
+                        <li>
+                            <%= link_to '#' do %>
+                              <i class="fa fa-file-text-o fa-fw"></i> Assuntos/Áreas
+                            <% end %>
+                        </li>
+                        
+            
+### Criando as views (index e delete) para os Assuntos/Áreas
+- Comece copiando todas as views de admins para **views/admins_backoffice/subjects**
+- Agora fazer as devidas alterações para Subjects
+- Por fim, adicione a rota para chamar a index no menu do layout **views/layouts/admins_backoffice.html.erb**
+  
+                        <li>
+                            <%= link_to admins_backoffice_subjects_path do %>
+                              <i class="fa fa-file-text-o fa-fw"></i> Assuntos/Áreas
+                            <% end %>
+                        </li>
+                        
+                        
