@@ -1027,3 +1027,57 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                         </li>
                         
                         
+### Criando as views (new e edit) para os Assuntos/Áreas
+- Comece alterando **views/admins_backoffice/subjects/new.html.erb**, trocando para **subjects** onde esta escrito **admins**
+- Depois alterar o arquivo **edit.html.erb** também, fazendo a mesma troca de nomes
+- Depois alterar o Forms trocando os **admin** por **subject**
+- No Model de subjects onde onde está o kaminari, adicionar o comando **order(:description)** para que o programa possa ordenar em ordem alfabetica os assuntos/áreas
+
+### Criando uma Task para as Questões
+- Adicionnar no arquivo **lib/tasks/dev.rake**
+  
+                show_spinner("Cadastrando perguntas e respostas...") { %x(rails dev:add_awsers_questions) }
+
+- E a task 
+
+
+                desc "Adiciona perguntas e respostas"
+                task add_awsers_questions: :environment do
+                  Subject.all.each do |subject|
+                    rand(5..10).times do |i|
+                      Question.create!(
+                        description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
+                        subject: subject
+                      )
+                    end
+                  end
+                end 
+        
+    
+- Ajustas o model **app/models/subject.rb**, adicionando o has_many
+  
+                
+                class Subject < ApplicationRecord
+                   has_many :questions
+                end
+
+### Criando o controller para Questions
+- Comece com o comando no terminal
+  - rails g controller AdminsBackoffice/Questions
+- Copiar todo o controller de subject e fazer as devidas alterações para Question(s)
+
+### Crianado as views (index e delete) para as Questões
+- Adicione o resource questions para as rotas 
+  -  **resources :questions # Questões
+- Alterar o menu, adicionando mais um item em **layouts/admins_backoffice.html.erb**
+
+                
+                        <li>
+                            <%= link_to admins_backoffice_questions_path do %>
+                              <i class="fa fa-th-list fa-fw"></i> Perguntas
+                            <% end %>
+                        </li>
+                        
+- Copiar todas as views de asmins para **admins_backoffice/questions**
+- Alterar em **questions/index.html.erb** trocas os subjects por questions, para que o programa fique correto            
+                      
