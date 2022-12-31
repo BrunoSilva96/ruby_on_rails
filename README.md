@@ -1088,3 +1088,20 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - Depois alterar o **views/admins_backoffice/questions/shared/_form.html.erb**
   - Substituindo todos os subject por question
 - Depois alterar o controller, corrigindo os subject pra question e adicionando o que falta no controller.
+
+
+# Boa prática para o MVC
+- Alterar na view form de questions onde recebemos o Model diretamente, devemos substituir pos @subjects
+- Já no controller de questions devemos adicionar um before action
+  - before_action :get_subjects, only [:edit, :new]
+- E criar um método privado 
+  
+          
+            
+            
+            def get_subjects
+              @subjects = Subject.all
+            end
+            
+   
+  
