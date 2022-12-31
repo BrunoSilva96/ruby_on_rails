@@ -1065,10 +1065,11 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - Comece com o comando no terminal
   - rails g controller AdminsBackoffice/Questions
 - Copiar todo o controller de subject e fazer as devidas alterações para Question(s)
+- No método params_question adicionar após :description, o simbolo :subject_id.
 
 ### Crianado as views (index e delete) para as Questões
 - Adicione o resource questions para as rotas 
-  -  **resources :questions # Questões
+  -  **resources :questions** # Questões
 - Alterar o menu, adicionando mais um item em **layouts/admins_backoffice.html.erb**
 
                 
@@ -1081,3 +1082,9 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - Copiar todas as views de asmins para **admins_backoffice/questions**
 - Alterar em **questions/index.html.erb** trocas os subjects por questions, para que o programa fique correto            
                       
+### Criando as views (new e edit) para as Questões
+- Comece alterando **views/admins_backoffice/questions/new.html.erb** e o **edit.html.erb**
+  - Trocando subject por questions
+- Depois alterar o **views/admins_backoffice/questions/shared/_form.html.erb**
+  - Substituindo todos os subject por question
+- Depois alterar o controller, corrigindo os subject pra question e adicionando o que falta no controller.
