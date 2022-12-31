@@ -3,7 +3,7 @@ class AdminsBackoffice::QuestionsController < AdminsBackofficeController
   before_action :set_question, only: [:edit, :update, :destroy]
 
   def index
-    @questions = Question.all.page(params[:page]).per(25)
+    @questions = Question.all.order(:description).page(params[:page]).per(25)
   end
 
   def new
@@ -12,7 +12,7 @@ class AdminsBackoffice::QuestionsController < AdminsBackofficeController
 
   def create
     @question = Question.new(params_question)
-    if question.save
+    if @question.save
       redirect_to admins_backoffice_questions_path, notice: "Questão cadastrado com sucesso!"
     else
       render :new
@@ -23,7 +23,7 @@ class AdminsBackoffice::QuestionsController < AdminsBackofficeController
   end
 
   def update
-    if question.update(params_question)
+    if @question.update(params_question)
       redirect_to admins_backoffice_questions_path, notice: "Questão atualizado com sucesso!"
     else
       render :edit
@@ -31,7 +31,7 @@ class AdminsBackoffice::QuestionsController < AdminsBackofficeController
   end
 
   def destroy
-    if question.destroy
+    if @question.destroy
       redirect_to admins_backoffice_questions_path, notice: "Questão excluído com sucesso!"
     else
       render :index
@@ -41,7 +41,7 @@ class AdminsBackoffice::QuestionsController < AdminsBackofficeController
   private
    
   def params_question
-    params.require(:question).permit(:description)
+    params.require(:question).permit(:description, :subject_id)
   end
    
   def set_question
