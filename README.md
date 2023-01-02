@@ -1104,4 +1104,11 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
             end
             
    
-  
+### Problema N+1 do SQL
+- Alterar o código do controller de questions para 
+    
+    
+            def index
+              @questions = Question.includes(:subject) .order(:description).page(params[:page]).per(25)
+            end
+            
