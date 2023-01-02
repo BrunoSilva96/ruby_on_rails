@@ -1112,3 +1112,83 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
               @questions = Question.includes(:subject) .order(:description).page(params[:page]).per(25)
             end
             
+
+# Incrementando o i18n para os Models
+- Adicionar as traduções necessarias em **config/locales/models.pt-BR.yml**
+- Alterar em **app/helpers/aplpication_helper.rb**
+    
+            
+              module AdminsBackofficeHelper
+                def translate_attribute(object = nil, method = nil)
+                  if object && method
+                     object.model.human_attribute_name(method)
+                  else
+                     "Informe os parâmetros corretamente!"
+                  end
+                end
+              end
+              
+              
+- Alterar em **app/views/admins_backoffice/questions/index.html.erb**
+
+                
+                <th><%= translate_attribute(@questions, :description) %></th>
+                <th><%= translate_attribute(@questions, :subject) %></th>
+                
+- Fazer o mesmo para as index de subjects e admins.
+
+### i18n com parâmetros
+- Crie e altera **config/locales/message.pt-BR.yml**
+
+
+            "pt-BR":
+              messages:
+              confirm_with: Você deseja realmente excluir [%{item}]
+              listing: Listando %{model}
+              editing: Editando %{model}
+              new: Novo %{model}
+
+- Alterar em **app/views/admins_backoffice/questions/index.html.erb**
+  
+            linha 3
+            <h1 class="page-header"><%= t('messages.listing', model: @questions.model_name.human(count: 2)) %></h1>
+
+
+            linha 30
+            <%= link_to admins_backoffice_question_path(question), method: :delete,class:"btn btn-danger btn-circle",
+            data: { confirm: **t('messages.confirm_with', item: question.description.truncate(20))** } do %>
+                    
+
+             
+                
+
+- Alterar também em Admins e Subjects
+
+# 4 Formas de criar um registro no AcriveRecord
+-  Usando o rails console
+  1)  
+        
+            q = Question.new
+            q.description: "bla bla",
+            q.subject: Subject.all.sample
+            
+            
+            
+  2)
+              
+            Question.create!(
+              description: "bla bla",
+              subject: Subject.all.sample
+            )
+            
+            
+  3)
+            params = {question: { description: "bla bla", subject_id: 1 }}
+            Question.create!(params[:question])
+            
+    
+  4)
+            
+            params = {question: { description: "bla bla", subject_id: 1 }}
+            q = Question.new(params[:question])
+            q.save!
