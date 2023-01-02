@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Listando Assuntos/Áreas</h1>
+    <h1 class="page-header"><%= t('message.listing', model: @subjects.model_name.human(count: 2)) %></h1>
   </div>
 </div>
 <div class="table-responsive">
@@ -8,7 +8,7 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Descrição</th>
+        <th><%= translate_attribute(@subjects, :description) %></th>
         <th>
           <%= link_to new_admins_backoffice_subject_path, class:"btn btn-success btn-circle" do %>
             <i class="fa fa-plus"></i>
@@ -25,7 +25,7 @@
           <%= link_to edit_admins_backoffice_subject_path(subject), class:"btn btn-primary btn-circle" do %>
             <i class="fa fa-edit"></i>
           <% end %>
-          <%= link_to admins_backoffice_subject_path(subject), method: :delete,class:"btn btn-danger btn-circle", data: { confirm: 'Deseja realmente excluir esse assunto/área?' } do %>
+          <%= link_to admins_backoffice_subject_path(subject), method: :delete,class:"btn btn-danger btn-circle", data: { confirm: t('message.confirm_with', item: subject.description) } do %>
             <i class="fa fa-minus"></i>
           <% end %>
         </td>
