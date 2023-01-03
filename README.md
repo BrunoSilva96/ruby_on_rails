@@ -1192,3 +1192,156 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
             params = {question: { description: "bla bla", subject_id: 1 }}
             q = Question.new(params[:question])
             q.save!
+
+
+
+# Entendendo Nested Attributes
+- Documentação...
+- https://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html
+- Alterar **app/models/questions.rb**
+    
+
+            class Question < ApplicationRecord
+              belongs_to :subject
+              has_many :answers
+              accepts_nested_attributes_for :answers
+            end
+            
+            
+#  Criando uma Task para as respostas
+- Altere **lib/tasks/dev.rake** na task "Adiciona perguntas e respostas"
+            
+            
+             
+             desc "Adiciona perguntas e respostas"
+              task add_awsers_questions: :environment do
+                Subject.all.each do |subject|
+                  rand(5..10).times do |i|
+                    params = { question: {
+                      description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
+                      subject: subject,
+                      answers_attributes: []
+                    }}
+
+                    rand(2..5).times do |j|
+                      params[:question][:answers_attributes].push(
+                        { description: Faker::Lorem.sentence, correct: false }
+                      )
+                    end
+
+                    index = rand(params[:question][:answers_attributes].size)
+                    params[:question][:answers_attributes][index] = { description: Faker::Lorem.sentence, correct: true }
+
+                    Question.create!(params[:question])
+                  end
+                end
+              end 
+              
+              
+              
+### Refatorando a Task de respostas
+
+
+
+              
+              desc "Adiciona perguntas e respostas"
+              task add_awsers_questions: :environment do
+                Subject.all.each do |subject|
+                  rand(5..10).times do |i|
+                    params = create_question_params(subject)
+                    answers_array = params[:question][:answers_attributes]
+
+                    add_answers(answers_array)
+
+                    elect_true_answer(answers_array)
+
+                    Question.create!(params[:question])
+                  end
+                end
+              end 
+
+              private
+
+              def create_question_params(subject = Subject.all.sample)
+                { question: {
+                  description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
+                  subject: subject,
+                  answers_attributes: []
+                  }
+                }
+              end
+
+              def create_answer_params(correct = false)
+                { description: Faker::Lorem.sentence, correct: correct }
+              end
+
+              def add_answers(answers_array = [])
+                rand(2..5).times do |j|
+                  answers_array.push(
+                    create_answer_params
+                  )
+                end
+              end
+
+              def elect_true_answer(answers_array = [])
+                selected_index = rand(answers_array.size)
+                answers_array[selected_index] = create_answer_params(true)
+              end
+
+
+- Criação dos métodos create_question_params, create_anawers_params, add_answers, elect_true_answer, cada uma com uma função para que o código fique mais limpo.
+
+
+
+# Instalando e configurando a gem Cocoon (Parte 1/2)
+-  Adicione no **Gemfile**
+  -  gem "cocoon"
+  - Rodar o **bundle**
+- Adicione no **app/assets/javascripts/admins_backoffice.coffe**
+  -  //= require cocoon
+- Alterar o model **Questions**
+          
+          
+          class Question < ApplicationRecord
+            belongs_to :subject, **inverse_of: :questions**
+            has_many :answers
+            accepts_nested_attributes_for :answers, **reject_if: :all_blank, allow_destroy: true**
+          end
+          
+          
+- Liberar os campos no **StrongParameters** em **questions_controller.rb** (Alterar no método params_question)
+
+
+          def params_question
+            params.require(:question).permit(:description, :subject_id, 
+              **answers_attributes: [:id, :description, :correct, :_destroy])**
+          end
+          
+          
+### Configurando a gem Cocoon (Parte 2/2)
+- No arquivo **questions/shared/_form.html.erb**, logo apos os campos, crie uma nova div e adicione os seguintes elementos
+            
+            
+            
+              <div id="answers">
+                <%= form.fields_for :answers do |answer| %>
+                  <%= render partial: "answer_fields", locals: { f: answer } %>  
+                <% end %>
+
+                <%= link_to_add_association '[Adicionar Resposta]', form, :answers %>
+              </div>
+
+
+- Logo após crie o arquivo na raiz de questions **_answer_fields.html.erb**
+
+              
+              <div class="nested-fields">
+                 <%= f.label :description %> 
+                 <%= f.text_field :description %>
+                 <%= f.check_box :correct %> Correta?
+
+                 <%= link_to_remove_association('Remover', f) %>
+              </div>
+              
+    
+-E já vai estar pronta para uso
