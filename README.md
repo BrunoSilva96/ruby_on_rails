@@ -1345,3 +1345,81 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
               
     
 -E já vai estar pronta para uso
+
+
+# Conhecendo o devise_controller e o resource_class
+- devise_controller?
+  -  Verifica se o controller que está sendo acessado pe do Devise
+- resource_class
+  - Verifica qual classe do Devise está sendo acessada
+- Apos fazer o teste no **application_controller.rb**
+
+        
+          
+          layout :layout_by_resource
+
+          private
+
+            def layout_by_resource
+              puts ">>>>>>>>>>>> #{devise_controller?}"
+              puts ">>>>>>>>>>>> #{resource_class}"
+              "application"
+            end
+            
+            
+- Vamos alterar para 
+          
+          
+          
+          
+          layout :layout_by_resource
+
+          protected
+
+            def layout_by_resource
+              if devise_controller? && resource_class == Admin
+                "admin_devise"
+              else
+                "application"
+              end
+            end
+            
+            
+- Crie o arquivo **admin_devise.html.erb** em views/layouts e cole nele todo o conteúdo do application.html.erb e mudar o h1 do body para LAYOUT ADMIN DEVISE
+
+# Coinfigurando uma template para o Admin Devise
+- Copie o conteúdo do arquivo **public/templates/startbootstrap-db-admin-2/pages/login.html**
+- Fazendo as devidas alterações, adicione o conteúdo copiando ao arquivo **app/views/layouts/admin_devise.html.erb**
+- Ao final o arquivo modificado ficara da forma que está no arquivo **app/views/layouts/admin_devise.html.erb**
+- Crie e ajuste o arquivo /app/assets/stylesheets/admin_devise.scss**
+
+        
+          /*
+         *= require bootstrap/dist/css/bootstrap
+         *= require metismenu/dist/metisMenu
+         *= require sb-admin-2
+         *= require font-awesome/css/font-awesome
+         */
+         
+- Crie e ajuste o arquivo /app/assets/javascripts/admin_devise.coffee**
+
+          
+          //= require jquery/dist/jquery
+          //= require bootstrap/dist/js/bootstrap
+          //= require metismenu/dist/metisMenu
+          //= require sb-admin-2
+          //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.js
+          
+          
+- Ajuste o arquivo **app/views/admins/sessions/new.html.erb**
+- Por fim, adicione o conteúdo abaixo em **config/initializers/assets.rb**
+
+          
+          admin_devise.js admin_devise.css
+
+
+# Conhecendo a gem Rails DB
+- Na opção de desenvolvedor da Gemfile
+  - gem 'rails_db'
+  - e rodar o bundle install
+- Acessar localhost:3000/rails/db
