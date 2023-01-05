@@ -1423,3 +1423,102 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - gem 'rails_db'
   - e rodar o bundle install
 - Acessar localhost:3000/rails/db
+
+
+# Melhorando o application_controller
+- Mudar o código para
+
+          
+
+            def layout_by_resource
+              devise_controller? ? "#{resource_class.to_s.downcase}_devise" : "application"
+            end
+            
+            
+- Crie o arquivo **app/views/layouts/user_devise.html.erb** com o conteudo de application.html.erb
+- Teste a aplicação
+
+
+# Migrando o template do login User Devise
+- Copiar o conteúdo do arquivo **public/templates/gentelella/production/login.html**
+- Fazendo as devidas alterações, adicione o conteúdo copiado ao arquivo **app/views/layouts/user_devise.html.erb**
+- Ao final o arquivo ficará assim **app/views/layouts/user_devise.html.erb** 
+- Crie e ajuste o arquivo **app/assets/stylesheets/user_devise.scss**
+- Crie e ajuste o arquivo **app/assets/javascripts/user_devise.coffee**
+- Ajuste o arquivo **app/views/users/sessions/new.html.erb**
+- Por fim, adiciona o conteído abaixo em **config/initializers/assets.rb**
+- user_devise.js user_devise.css
+
+# Migrando um template para o site
+- Acessar o link
+  - https://getbootstrap.com/docs/3.3/getting-started/#examples
+- Escolher o arquivo e baixar em **public/templates** e descompactar o arquivo
+- Copiar o conteúdo do arquivo (com os devidos ajustes) de **public/templates/bootstrap-3.3.7/docs/examples/navbar/index.html** para **app/views/layouts/site.html.erb**
+- Alterar o arquivo **app/assets/stylesheets/site.scss**
+
+            
+            /*
+           *= require bootstrap/dist/css/bootstrap
+           *= require surface-fix
+           *= require navbar
+           */
+           
+- Criar o arquivo **lib/assets/stylesheets/surface-fix.css** com o seguinte conteúdo
+
+            
+           @-ms-viewport     { width: device-width; }
+           @-o-viewport      { width: device-width; }
+           @viewport         { width: device-width; }
+
+
+- Crie o arquivo **lib/assets/stylesheets/navbar.css** com o seguinte conteúdo
+
+
+          
+            
+           body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+          }
+
+          .navbar {
+            margin-bottom: 20px;
+          }
+
+
+- Crie o arquivo **app/assets/javascripts/site.coffee** com o seguinte conteúdo
+
+
+          
+          
+          //= require jquery/dist/jquery
+          //= require bootstrap/dist/js/bootstrap
+          //= require surface-fix
+          
+          
+- Crie o arquivo **lib/assets/javascripts/surface-fix.js** com o seguinte conteúdo
+
+
+          
+          (function () {
+            "use strict";
+
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+              var msViewportStyle = document.createElement("style");
+              msViewportStyle.appendChild(
+                document.createTextNode("@-ms-viewport{width:auto!important}")
+              );
+              document.querySelector("head").appendChild(msViewportStyle);
+            }
+          })();
+
+
+- Por fim, adicione os arquivos para serem pré-compilados em **config/initializers/assets.rb**
+  - site.js site.css
+  - surface-fix.js surface-fix.css
+  - navbar.css
+  
+  
+# Primeiros ajustes no layout do site
+- Ajustar o layout **app/views/layouts/site.html.erb**
+- Olhar o arquivo para perceber as modificações.
