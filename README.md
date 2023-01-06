@@ -1522,3 +1522,161 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 # Primeiros ajustes no layout do site
 - Ajustar o layout **app/views/layouts/site.html.erb**
 - Olhar o arquivo para perceber as modificações.
+
+
+# Adicionando Sistema de Mensagens e Link ara Perfil
+- Ajustar o dropdown do layout de site para
+        
+        
+          
+              <ul class="dropdown-menu">
+                <li>
+                    <%= link_to users_backoffice_welcome_index_path do %>
+                      <i class="fa fa-user fa-fw"></i>Perfil
+                    <%end%>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                    <%= link_to destroy_user_session_path, method: :delete do %>
+                      <i class="fa fa-sign-out fa-fw"></i>Sair
+                    <%end%>
+                </li>
+              </ul>
+              
+              
+- Adicionar a biblioteca Growl em **site.coffee**
+  - //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.js
+- Adicionar a biblioteca para ícones em **site.scss**
+  - *= require font-awesome/css/font-awesome
+- Adicione o sistema de mensagens antes de fechar o body em **app/views/layouts/site.html.erb**
+
+                
+                
+                
+               <% if notice %>
+                <%= javascript_tag do %>
+                  $.bootstrapGrowl("<%= notice %>", {
+                  type: 'success', // (null, 'info', 'danger', 'success')
+                  align: 'right', // ('left', 'right', or 'center')
+                  width: 250, // (integer, or 'auto')
+                  delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                  allow_dismiss: true, // If true then will display a cross to close the popup.
+                  stackup_spacing: 10 // spacing between consecutively stacked growls.
+                  });
+                <% end %>
+               <% end %>
+               
+               
+# Listando as perguntas e respostas na index
+- Usaremos panels para nosso ajuste
+  - bootstrap 3.3 (acessar site, components, panels)
+- Ajustar o controller de site
+    
+                
+                class Site::WelcomeController < SiteController
+                  def index
+                    @questions = Question.all.includes(:answers).page(params[:page]).per(5)
+                  end
+                end
+                
+                
+                
+- Alterar o layout de **app/views/layouts/site.html.erb**(Verificar alterações no jumbotron)
+- Alterar a view **app/views/site/welcome/index.html.erb**
+
+                
+                <% @questions.each do |question| %>
+
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><%= question.description %> </h3>
+                    </div>
+                    <div class="panel-body">
+                      <ul>
+                        <% question.answers.each do |answer| %>
+                          <li><%= answer.description %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                <% end %>
+                
+                
+# Adicionando a barra de pesquisa
+- Usare o search box do bootstrap 3.3(conferir o search no arquivo **app/views/layouts/site.html.erb**)
+- Criar o controller search
+  -  rails g controller site::search
+- Altere a rota
+  
+            
+              namespace :site do
+                get 'welcome/index'
+                get 'search', to: 'search#questions'
+              end
+              
+- Alterar o controller de search para
+
+              
+              
+              class Site::SearchController < SiteController
+                 def questions
+                    @questions = Question.all.includes(:answers).page(params[:page]).per(5)
+                 end
+              end
+
+
+- Criar uma partial **app/views/site/shared/_questions.html.erb** Com o seguinte conteúdo
+
+
+               
+               
+               <% @questions.each do |question| %>
+                 <div class="panel panel-default">
+                   <div class="panel-heading">
+                     <h3 class="panel-title"><%= question.description %> </h3>
+                   </div>
+                   <div class="panel-body">
+                     <ul>
+                       <% question.answers.each do |answer| %>
+                         <li><%= answer.description %></li>
+                       <% end %>
+                     </ul>
+                   </div>
+                 </div>
+              <% end %>
+              
+              
+              
+- Alterar os arquvios index.html.erb e questions.html.erb
+
+
+              <%= render partial: 'site/shared/questions' %>
+              
+              
+# Fazendo a pesquisa funcionar
+- Alterar o controller de search para
+  
+  
+              
+              class Site::SearchController < SiteController
+                 def questions
+                    @questions = Question.includes(:answers)
+                                         .where("lower(description) LIKE ?", "%#{params[:term].downcase}%")
+                                         .page(params[:page]).per(10)
+                 end
+              end
+              
+       
+- Adicionar no final da partial **app/views/site/shared/_questions.html.erb**
+
+
+              <div class="text-center">
+                <%= paginate @questions %>
+              </div>
+
+
+### Devo usar o operador LIKE sempre?
+- **Não**
+  -  É necessário lembrar que o LIKE passa por casa registro da tabela fazendo a comparação e isso, em caso de tabelas com muitos registros acaba piorando bastante a performance do site.
+- Para contornar esse problema, deve-se usar uma pesquisa do tipo full-text utilizando servidores como o Elastic Search.
+
