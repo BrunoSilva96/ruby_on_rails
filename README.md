@@ -1680,3 +1680,39 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   -  É necessário lembrar que o LIKE passa por casa registro da tabela fazendo a comparação e isso, em caso de tabelas com muitos registros acaba piorando bastante a performance do site.
 - Para contornar esse problema, deve-se usar uma pesquisa do tipo full-text utilizando servidores como o Elastic Search.
 
+# Usando métodos de classe no model
+- Método de classe permite você usar um método definido sem precisar instanciar a classe, que no nosso caso é o model.
+- Adicioanr no model question.rb
+        
+            
+                 def self.search(page, term)
+                  Question.includes(:answers)
+                          .where("lower(description) LIKE ?", "%#{term.downcase}%")
+                          .page(page).per(10)
+                end
+
+                def self.last_questions(page)
+                  Question.all.includes(:answers).order('created_at desc').page(page).per(5)
+                end
+                
+          
+- Alterar o controlle search_controller.rb
+                
+                
+                class Site::SearchController < SiteController
+                  def questions
+                     @questions = Question.search(params[:page], params[:term])
+                  end
+                end
+
+                  
+       
+- Alterar o controlle welcome_controller.rb
+
+
+                class Site::WelcomeController < SiteController
+                  def index
+                    @questions = Question.last_questions(params[:page])
+                  end
+                end
+
