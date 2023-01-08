@@ -1716,3 +1716,30 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                   end
                 end
 
+# Usando Scopes 
+- Alterar o model question.rb para
+                
+                
+                
+                
+                #Scopes
+                scope :_search_, ->(page, term){
+                  includes(:answers)
+                  .where("lower(description) LIKE ?", "%#{term.downcase}%")
+                  .page(page).per(10)
+                }
+
+                scope :last_questions, ->(page){
+                  includes(:answers).order('created_at desc').page(page).per(5)
+                }
+
+
+- Alterar o search_controller.rb adicionando os underline no search **_search_**
+- Alterar em **app/views/layouts/site.html.erb** na linha 37 para
+
+
+                
+                <%= link_to 'Time to Answer', root_path, class:"navbar-brand" %>
+       
+       
+       
