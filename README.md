@@ -1743,3 +1743,115 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
        
        
        
+# Mensagem do termo pesquisando
+- Alterar o layout  de **app/views/layouts/site.html.erb**
+
+                
+                
+                <div class="jumbotron">
+                  <% unless params[:term] %>
+                    <h3>Últimas perguntas cadastradas...</h3>
+                  <% else %>
+                    <h3><%="Resultados para o termo \"#{params[:term]}\"..."%></h3>
+                  <% end %>
+                </div>
+                 
+                 
+
+# Ativando as respostas das perguntas
+- Comece criando um controller para as respostas
+  -  rails g controller site::answer
+- Adiciona uma rota no namespace :site
+  -  **post 'answer', to: 'answer#question'**
+- Alterar a herança e e adicionar ao controller
+
+
+                class Site::AnswerController < SiteController
+                   def question
+                      puts ">>>>>>>>>>>>>>>#{params[:answer]}"
+                   end
+                end
+
+
+- Criar a view **app/views/site/answer/question.html.erb**
+- Adicionar o código **O ID da resposta selecionada é:<%= params[:answer] %>** (Para uma visualização na página)
+- Remover o jumbotron so layout "site" e adicionar na partial **app/views/site/shared/_questions.html.erb**
+
+
+                
+                
+                <div class="jumbotron">
+                  <% unless params[:term] %>
+                    <h3>Últimas perguntas cadastradas...</h3>
+                  <% else %>
+                    <h3><%="Resultados para o termo \"#{params[:term]}\"..."%></h3>
+                  <% end %>
+                </div>
+
+
+- Alterar a partial **app/views/site/shared/_questions.html.erb**
+
+                
+                
+                <% @questions.each do |question| %>
+                  <%= form_with url: site_answer_path, local: true do |form| %>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><%= question.description %> </h3>
+                      </div>
+                      <div class="panel-body">
+                        <ul>
+                          <% question.answers.each do |answer| %>
+                            <li style="list-style: none;">
+                              <div class="radio">
+                                <label>
+                                  <%= radio_button_tag 'answer', answer.id %>
+                                  <%= answer.description %>
+                                </label>
+                              </div>
+                            </li>
+                          <% end %>
+                          <li style="list-style: none;">
+                            <%= form.submit "Responder",  class:"btn btn-default" %>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+
+
+- Adição do radio_button_tag, o botão de submit, e um CSS in line para remover o list-style do radio_button_tag
+
+### Verificando a resposta correta
+- Altere o controller **app/controllers/site/answer_controller.rb**
+                
+                
+                class Site::AnswerController < SiteController
+                   def question
+                      @answer = Answer.find(params[:answer_id])
+                   end
+                end
+
+
+- Altere a view **app/views/site/answer/question.html.erb**
+                
+                
+                
+                <% if @answer.correct %>
+                  <h1 style="color: green;">Parabéns você ACERTOU!!! \o/</h1>
+                <% else %>
+                  <h1 style="color: red;">Resposta ERRADA!!! TT-TT</h1>
+                <% end %>
+                
+                
+- Alterar a partial **app/views/site/shared/_questions.html.erb**
+
+
+                  <label>
+                    <%= radio_button_tag 'answer_id', answer.id %>
+                    <%= answer.description %>
+                  </label>
+                  
+                  
+                  
