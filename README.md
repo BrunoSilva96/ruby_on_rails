@@ -1855,3 +1855,104 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                   
                   
                   
+
+# Entendendo o "ciclo" JS no Rails
+- Ciclo Js em aplicação Rails...
+  -  **View -> Controller -> .js.erb**
+    - Arquivos .js.erb são arquivos que podem mistrurar JS e ERB.
+- Remova o **local:true** do **form_with** da partial **app/views/site/shared/_questions.html.erb**
+- Criar o arquivo **app/views/site/answer/question.js.erb**
+  - Com o conteúdo alert('teste <%= @answer.correct%>');
+  
+# Verificando as respostas através de JS
+- Ciclo JS em aplicações Rails na partial **app/views/site/shared/_questions.html.erb**
+(A mudança é na parte do id do form.submit)
+
+                    
+                    <li style="list-style: none;">
+                      <%= form.submit "Responder",  class:"btn btn-default", id: "submit_#{question.id}" %>
+                    </li>
+                    
+                    
+- Alterar o **app/views/site/answer/question.js.erb** para
+
+                    
+                    
+                    
+                    var element = document.getElementById('submit_<%= @answer.question_id %>');
+
+                    element.classList.remove('btn-default');
+                    element.classList.remove('btn-success');
+                    element.classList.remove('btn-danger');
+
+                    if (<%= @answer.correct %>) {
+                      element.classList.add('btn-success');
+                      $.bootstrapGrowl("Você acertou !!! \\o/", {
+                        type: 'success', 
+                        align: 'right', 
+                        width: 250, 
+                        delay: 4000, 
+                        allow_dismiss: true, 
+                        stackup_spacing: 10 
+                        });
+                    } else {
+                      element.classList.add('btn-danger');
+                      $.bootstrapGrowl("Você errou !!! :(", {
+                        type: 'danger', 
+                        align: 'right', 
+                        width: 250, 
+                        delay: 4000, 
+                        allow_dismiss: true,
+                        stackup_spacing: 10 
+                        });
+                    }
+                    
+                    
+                    
+- Usando o JS para alterar os elementos da página(usando DOM, Document Object Model)
+
+### Reflexão sobre o uso do sistema
+- Pense sempre em como o servidor vai receber as requisições, bem como o BD está reagindo.
+
+# Filtrando as questões por assuntos 
+- Adicione a action em **app/controllers/site/search_controller.rb**
+
+                      
+                       def subject
+                          @questions = Question._search_subject_(params[:page], params[:subject_id])
+                       end
+                       
+                       
+- Adicione ao model **app/models/question.rb**(Para evitar o N+1 adcionar :subject aos includes dos scopes**
+                        
+                        
+                        
+                        scope :_search_subject_, ->(page, subject_id){
+                          includes(:answers, :subject)
+                          .where(subject_id: subject_id)
+                          .page(page).per(10)
+                        }
+                        
+                        
+- Adicionar a rota
+  - get 'subject/:subject_id/:subject', to: 'search#subject', as: 'search_subject'
+- Criar o arquivo **app/views/site/search/subject.html.erb** com o conteúdo a seguir
+  - <%= render partial: 'site/shared/questions' %>
+- Altere o arquivo **app/views/site/shared/_questions.html.erb** (Visualizar no arquivo as mudanãs no jumbotron e a adção do link question)
+- Crie um helper em **app/helpers/site_helper.rb**
+
+          
+                        module SiteHelper
+                          def msg_jumbotron
+                            case params[:action]
+                            when 'index'
+                                "Últimas perguntas cadastradas..."
+                            when 'questions'
+                                "Resultado para o termo \"#{params[:term]}\"..."
+                            when 'subject'
+                                "Mostrando questões para o assunto \"#{params[:subject]}\"..."
+                            end
+                          end
+                        end
+
+
