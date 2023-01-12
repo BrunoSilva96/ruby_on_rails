@@ -1983,4 +1983,31 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                       
                       
 # Ajustando o cadastro de novos usuários
-- 
+- Altere a view **app/views/users/registrations/new.html.erb**
+- Verificar como identificar os erros no cadastro com o devise
+- Altere o layout **app/views/layouts/user_devise.html.erb**
+                    
+                      
+                      
+                    <% unless resource.errors.empty? %>
+                     <% resource.errors.full_messages.each do |msg| %>
+                       <%= javascript_tag do %>
+                       $.bootstrapGrowl('<%= msg %>', {
+                       type: 'danger', // (null, 'info', 'danger', 'success')
+                       align: 'right', // ('left', 'right', or 'center')
+                       allow_dismiss: true, // If true then will display a cross to close the popup.
+                       stackup_spacing: 10 // spacing between consecutively stacked growls.
+                       });
+                       <% end %>
+                     <% end %>
+                   <% end %>
+                   
+
+# Removendo o cadastro externo de admins
+- Verifique a documentação do devise
+- Devemos mudar em routes o devise_for :admins para
+- devise_for :admins, :skip [:registrations]
+
+### Limpando o layout do usuário
+- **app/views/layouts/users_backoffice.html.erb**
+- Verificar como ficou
