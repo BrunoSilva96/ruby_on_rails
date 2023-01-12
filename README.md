@@ -1956,3 +1956,31 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                         end
 
 
+### Mostrando a quantidade de questões por assunto
+- Altere **app/views/site/shared/_questions.html.erb**
+  - <%= link_to "#{question.subject.description} (#{question.subject.questions.count})"
+  - Um problema N+1 ficou após essa mudança, para resolver é so seguir o caminho abaixo.
+### Entendendo e usando o counter_cache
+- O **counter_cache** fica sempre como uma opção do **belongs_to**, sendo assim, teremos em **app/models/question.rb**
+  - belongs_to :subject, counter_cache: true, inverse_of: :questions
+-  Agora precisamos criar uma migração para adicionar um campo para fazer o cache em Subjects...
+  - rails g migration AddQuestionsCountToSubjects questions_count:integer
+  - rails db:migrate
+- Altere a view **app/views/site/shared/_questions.html.erb**
+  - (#{question.subject.questions_count})
+- Crie uma task para resetar o contador de todos os assuntos...
+  
+  
+                      
+                      desc "Reseta o contador dos assuntos"
+                      task reset_subject_counter: :environment do
+                        show_spinner("Resetando contador dos assuntos...") do
+                          Subject.find_each do |subject|
+                            Subject.reset_counters(subject.id, :questions)
+                          end
+                        end
+                      end 
+                      
+                      
+# Ajustando o cadastro de novos usuários
+- 
