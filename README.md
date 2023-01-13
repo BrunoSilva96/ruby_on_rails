@@ -2011,3 +2011,15 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 ### Limpando o layout do usuário
 - **app/views/layouts/users_backoffice.html.erb**
 - Verificar como ficou
+
+# Adcionando o nome do usuário no Devise
+- Crie a migration
+  - rails g migration AddNameToUsers first_name:string last_name:string
+  - rails db:migrate
+- No model users.rb, crie o método
+                        
+                     
+                     
+                      def full_name
+                        [self.first_name, self.last_name].join(' ')
+                      end
