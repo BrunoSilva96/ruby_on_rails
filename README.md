@@ -2064,7 +2064,13 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                      </ul>
                                                                                          
                                                             
-                                                                                          
+#Atualizando os dados do usuário
+- Altere o profile_controller.rb
+- Crie o arquivo **app/views/users_backoffice/profile/edit.html.erb**
+- Modifique para que fique com o formulario como já fazemos
+- Adicionar no i18N first_name, last_name, password e password_confirmation
+                         
+                         
                                                                                          
                                                                                          
                         
