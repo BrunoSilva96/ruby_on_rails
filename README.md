@@ -2023,3 +2023,49 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                       def full_name
                         [self.first_name, self.last_name].join(' ')
                       end
+
+      
+# Criando formulário do perfil do usuário
+- Crie o controller
+  - rails g controller UsersBackoffice::Profile
+- Alterar o controller **app/controllers/users_backoffice/profile_controller.rb**
+
+                     
+                     
+                     class UsersBackoffice::ProfileController < UsersBackofficeController
+                       def edit
+                       end
+                      end
+                                                                                         
+- Adicione a rota
+            
+                                                                                         
+                     namespace :users_backoffice do
+                     get 'welcome/index'
+                     get 'profile', to: 'profile#edit'
+                     end  
+                                                                                         
+- Criar a view **app/views/users_backoffice/profile/edit.html.erb**
+- Ajustar o layout **app/views/layouts/users_backoffice.html.erb**
+
+                                                                                         
+                                                                                         
+                     <ul class="nav side-menu">
+                       <li>
+                         <%= link_to users_backoffice_welcome_index_path do %>
+                           <i class="fa fa-home"></i>Início
+                         <% end %>
+                       </li>
+                       <li>
+                         <%= link_to users_backoffice_profile_path do %>
+                           <i class="fa fa-user"></i>Dados do perfil
+                         <% end %>
+                       </li>
+                     </ul>
+                                                                                         
+                                                            
+                                                                                          
+                                                                                         
+                                                                                         
+                        
+                                                                                         
