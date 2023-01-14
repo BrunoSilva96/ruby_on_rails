@@ -2069,9 +2069,17 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - Crie o arquivo **app/views/users_backoffice/profile/edit.html.erb**
 - Modifique para que fique com o formulario como já fazemos
 - Adicionar no i18N first_name, last_name, password e password_confirmation
-                         
-                         
-                                                                                         
-                                                                                         
                         
-                                                                                         
+                        
+# Conhecendo e usando validações no Rails
+- Altere o model **time_to_answer/app/models/user.rb**
+  - validates :first_name, presence: true, length: { minimum: 3}, on: :update
+- Alterar o layout **app/views/layouts/users_backoffice.html.erb**
+                      
+                      
+                      
+                      <div class="profile_info">
+                        <span>Seja bem-vindo,</span>
+                        <h2><%= current_user.full_name %></h2>
+                      </div>
+                      
