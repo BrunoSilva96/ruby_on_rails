@@ -2064,7 +2064,7 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                      </ul>
                                                                                          
                                                             
-#Atualizando os dados do usuário
+# Atualizando os dados do usuário
 - Altere o profile_controller.rb
 - Crie o arquivo **app/views/users_backoffice/profile/edit.html.erb**
 - Modifique para que fique com o formulario como já fazemos
@@ -2083,3 +2083,16 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                         <h2><%= current_user.full_name %></h2>
                       </div>
                       
+
+# Adicionando dados extras
+- Crie o model
+  - rails g model UserProfile address:string gender:string birthdate:date user:references
+  - rails db:migrate
+- Adiciona ao model **app/models/user.rb**
+  - has_one :user_profile
+  - accepts_nested_attributes_for :user_profile, reject_if: :all_blank
+- Alterar o controller **app/controllers/users_backoffice/profile_controller.rb**
+  - Na parte do edit adicionar  @user.build_user_profile if @user.user_profile.blank?
+  - No update bypass_sign_in(@user)
+  - E adicionar os novos campos no método params_user
+- No **app/views/users_backoffice/profile/edit.html.erb**, adicionar os novos três campos que geramos com o model
