@@ -2096,3 +2096,99 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - No update bypass_sign_in(@user)
   - E adicionar os novos campos no método params_user
 - No **app/views/users_backoffice/profile/edit.html.erb**, adicionar os novos três campos que geramos com o model
+
+
+# Trabalhando com radiobutton
+- Altere a view **app/views/users_backoffice/profile/edit.html.erb** 
+
+
+                <div class="form-group">
+                <%= profile_form.label :gender, class:"control-label col-md-3 col-sm-3 col-xs-12" %> 
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div id="gender" class="btn-group" data-toggle="buttons">
+                    <label class="btn <%= gender_select(@user, 'M') %>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                      <%= profile_form.radio_button :gender, "M", "data-parsley-multiple":"gender" %>&nbsp; Masculino &nbsp;
+                    </label>
+                    <label class="btn <%= gender_select(@user, 'F') %>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                    <%= profile_form.radio_button :gender, "F", "data-parsley-multiple":"gender"%>&nbsp; Feminino &nbsp;
+                    </label>
+                  </div>
+                </div>
+               </div>
+               
+               
+- Crie o helper **app/helpers/users_backoffice/profile_helper.rb**
+              
+              
+              def gender_select(user, current_gender)
+                user.user_profile.gender == current_gender ? 'btn-primary' : 'btn-default' 
+              end
+
+- Adicione na view **app/views/users_backoffice/profile/edit.html.erb** (Abaixo do gender)
+
+
+              
+              <%= javascript_tag do %>
+                var labels = document.querySelectorAll('div#gender label');
+
+                labels.forEach((label) => {
+                  label.addEventListener('click', () => {
+                    label.classList.remove('btn-default');
+                    label.classList.add('btn-primary');
+
+                    labels.forEach((lbl) => {
+                      if(lbl != label){
+                        lbl.classList.remove('btn-primary');
+                        lbl.classList.add('btn-default');
+                      };
+                    });
+                  });
+                });
+              <% end %>
+              
+              
+# Trabalhando com data
+- Opção 1 (Ao em vez de usar o text_field, usar um date_field)
+- Opção 2 (**Adicione a biblioteca jquery-ui**) -> yarn add jquery-ui
+- Adicionar nos assets o JS **app/assets/javascripts/users_backoffice.coffee**
+  - require jquery-ui/ui/widgets/datepicker
+  - require jquery-ui/ui/i18n/datepicker-pt-BR
+- Adicionar nos assets o CSS **app/assets/stylesheets/users_backoffice.scss**
+  - require jquery-ui/themes/base/datepicker
+  - require jquery-ui/themes/base/theme
+- Alterar a view **app/views/users_backoffice/profile/edit.html.erb**
+            
+            
+              
+              <div class="form-group">
+                <%= profile_form.label :birthdate, class:"control-label col-md-3 col-sm-3 col-xs-12" %> 
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <%= profile_form.text_field :birthdate, value: l(@user.user_profile.birthdate),
+                  class:"form-control col-md-7 col-xs-12 datepicker"%>
+                </div>
+              </div>
+              
+              
+- Adicione no layout **app/views/layouts/users_backoffice.html.erb**
+
+              
+              <%= javascript_tag do %>
+                $(function() {
+                  $('.datepicker').datepicker();
+                });
+              <% end %>
+              
+              
+# i18n + rota para o backoffice do administrador
+- Em models.pt-BR.yml Adicionar os campos que faltam do user e do user_profile
+- Em rota, adicionar uma nova para o backoffice administrador
+  -   get 'backoffice', to: 'admins_backoffice/welcome#index'
+
+# Adicionando uma Janela Modal
+- Pegar na documentação do bootstrap
+- Alterar o layout para criar o link para o modal
+  - link_to image_tag('img.jpg', alt:"...", class:"img-circle profile_img"), '#', "data-toggle":"modal", "data-target":"#avatarModal"
+- Adicionar o Modal antes do fechamento do body e do javascript_tag
+
+### Corrigindo a data de nascimento do perfil
+- value: (l(@user.user_profile.birthdate) unless @user.user_profile.birthdate?)
