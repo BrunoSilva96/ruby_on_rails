@@ -2192,3 +2192,65 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 
 ### Corrigindo a data de nascimento do perfil
 - value: (l(@user.user_profile.birthdate) unless @user.user_profile.birthdate?)
+
+
+# Adicionando foto ao perfil(Active Storage)
+- Active Storage
+  - rails active_storage:install
+  - rails db:migrate
+- Alterar o model **user_profile.rb**
+  - has_one_attached :avatar
+- Alterar a janela do modal 
+
+                    
+                    <div class="modal-body">
+                      <%= form.fields_for :user_profile do |profile_form| %>
+                        <div class="form-group">
+                          <%= profile_form.label :avatar %> 
+                          <%= image_tag(avatar_url, alt:"...", class:"img-circle profile_img") %>
+                          <%= profile_form.file_field :avatar %>
+                        </div>
+                      <% end %>
+                    </div>
+                    <div class="modal-footer">
+                      <%= form.submit "Salvar", class:"btn btn-primary" %>
+                    </div>
+                  <% end %>
+                  
+             
+- Alterar o controller **users_backoffice_controller.rb**
+  - before_action :build_profile
+  - Um método privado chamado build_profile com o seguinte conteúdo
+    - current_user.build_user_profile if current_user.user_profile.blank?
+- Alterar o controller **profile_controller.rb**
+  - Adicionando [:avatar] no params_user, user_profile_attributes
+- Alterar a parte do update
+                
+                
+                
+                  def update
+                    if @user.update(params_user)
+                       bypass_sign_in(@user)
+                       if params_user[:user_profile_attributes][:avatar]
+                          redirect_to users_backoffice_welcome_index_path, notice: "Avatar atualizado com sucesso!"
+                       else
+                          redirect_to users_backoffice_profile_path, notice: "Usuário atualizado com sucesso!"
+                       end
+                    else
+                       render :edit
+                    end
+                 end
+                 
+   
+- Criar um helper em **users_backoffice_helper.rb
+
+                 
+                 def avatar_url
+                    avatar = current_user.user_profile.avatar
+                    avatar.attached? ? avatar : 'img.jpg'
+                 end
+                 
+           
+- Alterar o layout **users_backoffice.html.erb**
+  - image_tag avatar_url **Onde for necessário**
+ 
