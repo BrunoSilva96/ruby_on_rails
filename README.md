@@ -2254,3 +2254,90 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - Alterar o layout **users_backoffice.html.erb**
   - image_tag avatar_url **Onde for necessário**
  
+
+# Melhorando a UX
+- Remova o "local: true" do formulário do modal **time_to_answer/app/views/layouts/users_backoﬃce.html.erb**
+- Adicione um id nas três imagens de perﬁl do layout **app/views/layouts/users_backoﬃce.html.erb**
+  - imgAvatarMd
+  - imgAvatarSm
+  - imgAvatarLg
+- Altere o controller **app/controllers/users_backoﬃce/proﬁle_controller.rb**
+
+                
+                  def update
+                    if @user.update(params_user)
+                      bypass_sign_in(@user)
+                      unless params_user[:user_profile_attributes][:avatar]
+                        redirect_to users_backoffice_profile_path, notice: "Usuário atualizado com sucesso!"
+                      end
+                    else
+                      render :edit
+                    end
+                  end
+                  
+    
+- Criar e adicionar na view **app/views/users_backoffice/profile/update.js.erb**
+                  
+                  
+                  $('#avatarModal').modal('hide');
+
+                  document.getElementById('imgAvatarLg').src = "<%= url_for(@user.user_profile.avatar) %>"
+                  document.getElementById('imgAvatarSm').src = "<%= url_for(@user.user_profile.avatar) %>"
+                  document.getElementById('imgAvatarMd').src = "<%= url_for(@user.user_profile.avatar) %>"
+
+                  $.bootstrapGrowl("Avatar atualizado com sucesso!", {
+                     type: 'success', // (null, 'info', 'danger', 'success')
+                     align: 'right', // ('left', 'right', or 'center')
+                     width: 250, // (integer, or 'auto')
+                     delay: 4000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
+                     allow_dismiss: true, // If true then will display a cross to close the popup.
+                     stackup_spacing: 10 // spacing between consecutively stacked growls.
+                  });
+                  
+                  
+# Forçando o usuário a efetuar login
+- Alterar a view **app/views/site/shared/_questions.html.erb**
+                  
+                  
+                   <% if user_signed_in? %>
+                    <div class="text-center">
+                        <%= paginate @questions %>  
+                    </div>
+                   <%else%>
+                    <div class="alert alert-warning" role="alert">
+                      Efetue login para poder continuar respondendo as questões!
+                    </div>  
+                   <% end %>
+                   
+                   
+- Alterar o controller **app/controllers/application_controller.rb**
+  - Adicionando um   before_action :check_pagination
+
+                  
+                  def check_pagination
+                    unless user_signed_in?
+                      params.extract!(:page)
+                    end
+                  end
+                  
+
+# Estatísticas do Usuário
+- rails g model UserStatistic user:references right_questions:integer wrong_questions:integer
+- Ajustar a migração **db/migrate/20230118214101_create_user_statistics.rb**
+  - t.integer :right_questions, default: 0
+  - t.integer :wrong_questions, default: 0
+- rails db:migrate                   
+- Ajustar o model **app/models/user_statistic.rb**
+  
+  
+                  # Virtual Attributes
+                  def total_questions
+                    self.right_questions + self.wrong_questions
+                  end 
+                  
+                  
+- Ajustar o controller **app/controllers/site/answer_controller.rb** (Criando um método privado para registrar as questões que foram respondidas)
+- Ajustar o controller **app/controllers/users_backoffice/welcome_controller.rb**
+  - @user_statistic = UserStatistic.find_or_create_by(user: current_user)
+- Ajustar a view **app/views/users_backoffice/welcome/index.html.erb**(Adicionando os titulos de status para as respostas)
+- (Tudo que vai no ajuste esta no templates/gentellela)
