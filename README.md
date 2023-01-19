@@ -2361,3 +2361,37 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                         
                         
 # Estatísticas do Admin
+- Gerar um novo model
+  - rails g model AdminStatistc event:string value:integer
+- Altere a migration **db/migrate/20230119190742_create_admin_statistics.rb**
+  - t.integer :value, default: 0
+- Alterar o model **app/models/admin_statistic.rb**
+                     
+                     
+                     
+
+                      EVENTS = {
+                      total_users: "TOTAL_USERS",
+                      total_questions: "TOTAL_QUESTIONS"
+                    }
+
+                    def self.set_event(event)
+                      admin_statistic = AdminStatistic.find_or_create_by(event: event)
+                      admin_statistic.value += 1
+                      admin_statistic.save
+                    end
+                     
+
+- Alterar o model **app/models/question.rb** e o **app/models/user.rb**
+  - Adicionando o set_statistic(olhar como ficou no arquivo)
+- Alterar o controller **app/controllers/admins_backoffice/welcome_controller.rb**
+  
+                     
+                     
+                      def index
+                        @total_users = AdminStatistic.find_by_event(AdminStatistic::EVENTS[:total_users]).value
+                        @total_questions = AdminStatistic.find_by_event(AdminStatistic::EVENTS[:total_questions]).value
+                      end
+                     
+                     
+- E adicioanr os componente na view **app/views/admins_backoffice/welcome/index.html.erb**
