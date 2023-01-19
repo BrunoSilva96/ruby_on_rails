@@ -2341,3 +2341,23 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - @user_statistic = UserStatistic.find_or_create_by(user: current_user)
 - Ajustar a view **app/views/users_backoffice/welcome/index.html.erb**(Adicionando os titulos de status para as respostas)
 - (Tudo que vai no ajuste esta no templates/gentellela)
+
+
+# Refatorando o User Statistic
+- Ajustar o controller **app/controllers/site/answer_controller.rb**
+  - UserStatistic.set_statistic(@answer, current_user)
+- Ajustar o model **app/models/user_statistic.rb**
+  
+  
+                        
+                        def self.set_statistic(answer, current_user)
+                          if !!current_user
+                            user_statistic = UserStatistic.find_or_create_by(user: current_user)
+                            answer.correct? ? user_statistic.right_questions += 1 : user_statistic.wrong_questions += 1
+                            user_statistic.save
+                          end
+                        end
+                        
+                        
+                        
+# Estatísticas do Admin
