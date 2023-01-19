@@ -2395,3 +2395,50 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                      
                      
 - E adicioanr os componente na view **app/views/admins_backoffice/welcome/index.html.erb**
+
+                     
+# Refatorando o Admin Atatistic
+- Altere o model **app/models/admin_statistic.rb**
+
+                     
+                     
+                     
+                     #Scopes
+                      scope :total_users, -> {
+                        find_by_event(EVENTS[:total_users]).value
+                      }
+
+                      scope :total_questions, -> {
+                        find_by_event(EVENTS[:total_questions]).value
+                      }
+                     
+                    
+                   
+- Alterar o controller **app/controllers/admins_backoffice/welcome_controller.rb**
+                     
+                     
+                     @total_users = AdminStatistic.total_users
+                     @total_questions = AdminStatistic.total_questions
+                     
+                     
+             
+# Recuperando a senha do usuário
+- Altere a view do devise **app/views/users/sessions/new.html.erb**
+  - Adicionando o link_to dentro da div do submit
+  - <%= link_to 'Esqueceu a sua senha?', new_user_password_path, class:"reset_pass" %>
+- Em **app/views/users/passwords/new.html.erb**
+  - Adicion o layout que temos em **app/views/users/sessions/new.html.erb** e faça as devidas alterações.
+
+### Mailtrap
+- Acessar o site
+- Copiar as configurações que o site disponibiliza
+- Colar no ambiente em que queremos testar se esta funcionando
+                 
+### Finalizando a recuperação de senha
+- Alterar a view **app/views/users/mailer/reset_password_instructions.html.erb** a traduzindo para PT-br
+- Alterar a view **app/views/users/passwords/edit.html.erb** (Fazendo as devidas alterações para o layout)
+                     
+
+
+
+                     
