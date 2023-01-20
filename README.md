@@ -2437,8 +2437,29 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 ### Finalizando a recuperação de senha
 - Alterar a view **app/views/users/mailer/reset_password_instructions.html.erb** a traduzindo para PT-br
 - Alterar a view **app/views/users/passwords/edit.html.erb** (Fazendo as devidas alterações para o layout)
-                     
+### Validações condicionais
+- Alterar o controller **app/controllers/application_controller.rb**
+                      
+                      
+                        before_action :set_global_params
+                        def set_global_params
+                          $global_params = params
+                        end
+                        
+                        
+- Alterar o model **app/models/user.rb**
 
+                        
+                        validates :first_name, presence: true, 
+                                               length: { minimum: 3}, 
+                                               on: :update, 
+                                               unless: :reset_password_token_present?
+                        
 
-
-                     
+                         def reset_password_token_present?
+                           !!$global_params[:user][:reset_password_token]
+                         end
+                         
+                         
+                         
+# Conhecendo o Action Mailer
