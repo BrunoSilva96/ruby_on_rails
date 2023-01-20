@@ -2463,3 +2463,41 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
                          
                          
 # Conhecendo o Action Mailer
+- rails g mailer AdminMailer
+- Alterar o mailer **app/mailers/admin_mailer.rb**
+                     
+                     
+                     def update_email(current_admin, admin)
+                       @current_admin = current_admin
+                       @admin = admin
+                       mail(to: @admin.email, subject: "Seus dados foram alterados!")
+                      end
+                     
+                     
+- Alterar a view **app/views/admin_mailer/update_email.html.erb**
+                     
+                     
+                     <h1><%= @admin.email %>,</h1>
+                     <p>Seus dados foram atualizados por <b><%= @current_admin.email%></b>.</p>
+                      
+                       
+- Preview Action Mailer http://guides.rubyonrails.org/action_mailer_basics.html#previewing-emails
+                     
+                       
+                        test/mailers/previews/admin_mailer_preview.rb
+                       
+                       
+                          class AdminMailerPreview < ActionMailer::Preview
+                           def update_email
+                           AdminMailer.with(Admin.first, Admin.last).update_email
+                           end
+                          end
+                          
+                                                                          
+                         Acesse: http://localhost:3000/rails/mailers
+                                                                          
+                                                                          
+                                                                          
+- Enviando o email **app/controllers/admins_backoffice/admins_controller.rb**
+  - AdminMailer.update_email(current_admin, @admin).deliver_now
+- Adicionar no método update
