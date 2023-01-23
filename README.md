@@ -2501,3 +2501,68 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - Enviando o email **app/controllers/admins_backoffice/admins_controller.rb**
   - AdminMailer.update_email(current_admin, @admin).deliver_now
 - Adicionar no método update
+
+# Modulo 7 - Extras
+
+# Trabalhando com PDF
+- Adicionar a gem Prawn-Rails
+  - http://prawnpdf.org
+  - https://github.com/cortiz/prawn-rails
+# Respondendo aos formatos HTML e JSON
+- Adicionar no respond_to de **app/controllers/admins_backoffice/subjects_controller.rb**
+  - format.json { @subjects = Subject.all.order(:description) }
+- Acriar um arquivo na **views/admins_backoffice/subjects** chamado index.json.jbuilder
+
+
+                      
+                      json.array! @subjects do |subject|
+                         json.id subject.id
+                         json.description subject.description
+                         json.author "Bruno Silva"
+                      end
+                      
+                      
+- Link do json builder https://github.com/rails/jbuilder
+
+# Consumindo uma API(IRB)
+- API do CEP
+  -  https://viacep.com.br/
+- URI
+  -  https://ruby-doc.org/stdlib-2.6.3/libdoc/uri/rdoc/URI.html
+  
+  
+                    uri = URI("https://viacep.com.br/ws/01001000/json/")
+                    uri.scheme
+                    uri.host
+                    uri.path
+                    
+                   
+-  Net::HTTP
+  - https://ruby-doc.org/stdlib-2.6.3/libdoc/net/http/rdoc/Net/HTTP.html
+                    
+                    
+                    require "net/http"
+                    Net::HTTP.get(
+                     URI("https://viacep.com.br/ws/01001000/json/")
+                    )
+                    
+                    
+- ActiveSupport::JSON.decode
+  - https://api.rubyonrails.org/classes/ActiveSupport/JSON.html#method-c-decode
+  
+                    
+                    require "net/http"
+                    cep = ActiveSupport::JSON.decode(
+                      Net::HTTP.get(
+                       URI("https://viacep.com.br/ws/01001000/json/")
+                      )
+                     )
+                     
+                     
+- ActiveSupport::JSON.decode
+
+                    
+                    cep["logradouro"]
+                    cep["complemento"]
+                    cep["localidade"]
+                    
