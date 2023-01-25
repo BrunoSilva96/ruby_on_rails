@@ -2612,3 +2612,39 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - Terá o retorno do cep digitado
 - cep.endereço
   - Vai vir formatado
+
+# Consumindo uma API (View/Controller)
+- Criar uma migration
+  - rails g migration AddZipCodeToUserProfiles zip_code:string
+  - rails db:migrate
+- No Profile Controller adicionar o :zip_code no método params_user, em user_profile_attributes
+- Gerar o controller zip code
+  - rails g controller users_backoffice/zip_code
+    - Adicionar o método
+                    
+                    
+                    def show
+                      @cep = CEP.new(params[:zip_code])
+                    end
+                    
+                   
+- Adicionar uma Rota paca o controller
+  - get 'zip_code', to: 'zip_code#show'
+- Usar o link_to, remote:true
+  - https://api.rubyonrails.org/v5.2.3/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to
+- Alterar o arquivo **app/views/users_backoffice/profile/edit.html.erb** (Verificar no arquivo as alterações)
+- Criar um arquivo show.js.erb em **app/views/users_backoffice/zip_code/show.js.erb**
+- Com o seguinte código
+                    
+                    
+                    var address = document.getElementById("user_user_profile_attributes_address");
+                    address.value = '<%= @cep.endereco %>';
+                    
+                    
+# Instalando e conhecendo o Redis
+- sudo apt-get update
+- sudo apt-get upgrade
+- sudo apt-install redis-server
+- E testar a conexão
+  - redis-cli
+    - **ping** (A resposta tem que ser PONG)
