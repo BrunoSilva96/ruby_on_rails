@@ -2659,3 +2659,31 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
   - E depois ir no redis-cli e digite...
   - GET 'city'
   - Ele vai resortar o valor da key que foi adicionada, se tudo ocorrer bem, deu certo a instalação
+
+# Usando o Redis no Rails
+- Criar uma task
+            
+            
+            desc "Adiciona todas as respostas no Redis"
+            task add_answers_to_redis: :environment do
+              show_spinner("Adicionando todas as respostas no Redis...") do
+                Answer.find_each do |answer|
+                  Rails.cache.write(answer.id, "#{answer.question_id}@@#{answer.correct}")
+                end
+              end
+            end 
+            
+            
+- Alterar o answer_controller, adicionando as linhas
+
+          
+          redis_answer = Rails.cache.read(params[:answer_id]).split("@@")
+
+          @question_id = redis_answer.first
+          @correct = ActiveModel::Type::Boolean.new.cast(redis_answer.last)
+          
+          
+- Alterar o **app/models/user_statistic.rb**, o parametro para **correct**
+- Alterar a view **site/answer/question.js.erb**
+  - var element = document.getElementById('submit_<%= @question_id %>');
+  - if (<%= @correct %>) 
