@@ -2648,3 +2648,14 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - E testar a conexão
   - redis-cli
     - **ping** (A resposta tem que ser PONG)
+
+# Configurando o Redis no Rails
+- gem 'redis'
+- gem 'hiredis'
+- E em **config/environments/development.rb**
+  - Substituir o cache store por **config.cache_store = :redis_cache_store**
+- Para verificar se está tudo indo certo vá no rails console e digite...
+  - Rails.cache.write('city', "Duckenberg")
+  - E depois ir no redis-cli e digite...
+  - GET 'city'
+  - Ele vai resortar o valor da key que foi adicionada, se tudo ocorrer bem, deu certo a instalação
