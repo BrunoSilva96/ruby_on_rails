@@ -2687,3 +2687,42 @@ Estudos de Ruby on Rails pelo curso de Jackson Pires, plataforma Udemy.
 - Alterar a view **site/answer/question.js.erb**
   - var element = document.getElementById('submit_<%= @question_id %>');
   - if (<%= @correct %>) 
+
+# Usando um editor WYSIWYG(What You See Is What You Get)
+- Usaremos o Trix editor
+- Instalar com a gem 'trix' e rodar um bundle
+- Adicionar no application.js e no application.css
+  - require trix
+- Em **app/views/admins_backoffice/questions/shared/_form.html.erb**  modificar para **hidden_field** e adicionar o trix-editor (Verificar no arquivo como ficou)
+- Em applciation.js adicionar o seguinte código
+
+              
+              document.addEventListener('trix-attachment-add', function (event) {
+                var file = event.attachment.file;
+                if (file) {
+                  var upload = new
+                window.ActiveStorage.DirectUpload(file,'/rails/active_storage/direct_uploads', window);
+                  upload.create((error, attributes) => {
+                    if (error) {
+                      return false;
+                    } else {
+                      return event.attachment.setAttributes({
+                        url: `/rails/active_storage/blobs/${attributes.signed_id}/${attributes.filename}`,
+                        href:`/rails/active_storage/blobs/${attributes.signed_id}/${attributes.filename}`,
+                      });
+                    }
+                  });
+                 }
+                });
+                
+                
+
+- Em **app/assets/stylesheets/site.scss** adicionar
+
+              
+              h3.panel-title div {
+               display: inline;
+              }
+              
+              
+- Em **app/views/site/shared/_questions.html.erb** e em **app/helpers/site_helper.rb** adicionar o **sanitize** para limpar as tags onde não deveriam estar
