@@ -82,13 +82,45 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    elasticsearch (7.13.3)
+      elasticsearch-api (= 7.13.3)
+      elasticsearch-transport (= 7.13.3)
+    elasticsearch-api (7.13.3)
+      multi_json
+    elasticsearch-transport (7.13.3)
+      faraday (~> 1)
+      multi_json
     erubi (1.11.0)
     execjs (2.8.1)
     faker (2.12.0)
       i18n (>= 1.6, < 2)
+    faraday (1.10.3)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      faraday-retry (~> 1.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
     ffi (1.15.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hashie (5.0.0)
     hiredis (0.6.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
@@ -126,6 +158,8 @@ GEM
     mini_portile2 (2.8.0)
     minitest (5.15.0)
     msgpack (1.6.0)
+    multi_json (1.15.0)
+    multipart-post (2.3.0)
     nio4r (2.5.8)
     nokogiri (1.11.0.rc3-x86_64-linux)
     orm_adapter (0.5.0)
@@ -191,6 +225,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    ruby2_keywords (0.0.5)
     ruby_dep (1.5.0)
     rubyzip (2.3.2)
     sass (3.7.4)
@@ -204,6 +239,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    searchkick (4.6.3)
+      activemodel (>= 5)
+      elasticsearch (>= 6, < 7.14)
+      hashie
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -228,6 +267,8 @@ GEM
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.11)
+    trix (0.10.1)
+      rails
     ttfunk (1.6.2.1)
     tty-cursor (0.7.1)
     tty-spinner (0.9.3)
@@ -275,10 +316,12 @@ DEPENDENCIES
   rails_db
   redis
   sass-rails (~> 5.0)
+  searchkick
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
+  trix
   tty-spinner
   tzinfo-data
   uglifier (>= 1.3.0)
